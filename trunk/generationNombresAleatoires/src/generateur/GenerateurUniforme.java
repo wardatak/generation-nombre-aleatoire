@@ -18,7 +18,7 @@ public class GenerateurUniforme extends Generateur {
 	 *            : le nombre de chiffre que l'on souhaite générer
 	 * @return la liste des nombres générés aléatoirement
 	 */
-	protected double[] generationNombre(int nombreGeneration) {
+	public double[] generationNombre(int nombreGeneration) {
 		listeNombres = new double[nombreGeneration];
 
 		for (int i = 0; i < nombreGeneration; i++) {
@@ -26,6 +26,12 @@ public class GenerateurUniforme extends Generateur {
 		}
 
 		return listeNombres;
+	}
+
+	@Override
+	public double calculValeurTehorique() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }
