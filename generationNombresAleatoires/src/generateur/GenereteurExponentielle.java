@@ -8,11 +8,28 @@ import java.util.ArrayList;
  *
  */
 public class GenereteurExponentielle extends Generateur{
+	
+	double nbUniforme;
+	
+	double lambda = 1;
 
 	@Override
 	public ArrayList<Double> generer(int nombreGeneration) {
-		// TODO Auto-generated method stub
-		return null;
+		GenerateurUniforme uniforme = new GenerateurUniforme();
+		double valeur = 0;
+		
+		for (int i=0; i<nombreGeneration; i++){
+			// on récupère un nombre aléatoire généré avec la loi uniforme
+			nbUniforme = uniforme.generer(1).get(0);
+			
+			// on injecte ce nombre dans la formule de la loi exponentielle
+			valeur = -1/lambda * Math.log(nbUniforme);
+			
+			// on ajoute la valeur à l'ArrayList
+			listeValeurs.add(valeur);
+		}
+		
+		return listeValeurs;
 	}
 
 	@Override
