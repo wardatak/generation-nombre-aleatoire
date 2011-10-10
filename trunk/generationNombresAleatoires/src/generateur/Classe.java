@@ -5,23 +5,26 @@ package generateur;
  * @author Kévin
  *
  */
-public class ClasseNombre {
+public class Classe {
 	
 	protected double min;
 	protected double max;
-	protected double valeurTheorique;
+	protected double effectifReel;
+	protected double effectifTheorique;
 	protected int quantite;
 	
 	/**
 	 * Constructeur avec parametres si on a le min et le max
 	 * @param valMin : valeur minimum de la classe
 	 * @param valMax : valeur maximum de la classe
-	 * @param valTheorique : valeur theorique pour la classe
+	 * @param effectifReel : valeur theorique pour la classe
+	 * @param effectifTheorique : valeur theorique pour la classe
 	 */
-	public ClasseNombre(double valMin, double valMax, double valTheorique){
+	public Classe(double valMin, double valMax, double effectifReel, double effectifTheorique){
 		setMin(valMin);
 		setMax(valMax);
-		setValeurTheorique(valTheorique);
+		setEffectifReel(effectifReel);
+		setEffectifTheorique(effectifTheorique);
 		setQuantite(0);
 	}
 	
@@ -30,10 +33,11 @@ public class ClasseNombre {
 	 * @param valMin : valeur minimum de la classe
 	 * @param valTheorique : valeur theorique pour la classe
 	 */
-	public ClasseNombre(double valMin, double valTheorique){
+	public Classe(double valMin, double effectifReel, double effectifTheorique){
 		setMin(valMin);
 		setMax(-1);
-		setValeurTheorique(valTheorique);
+		setEffectifReel(effectifReel);
+		setEffectifTheorique(effectifTheorique);
 		setQuantite(0);
 	}
 	
@@ -69,68 +73,39 @@ public class ClasseNombre {
 		return result;
 	}
 	
-	/**
-	 * Getter de la variable min
-	 * @return min
-	 */
 	public double getMin() {
 		return min;
 	}
-	
-	/**
-	 * Setter de la variable min
-	 * @param nouvelle valeur de min
-	 */
 	public void setMin(double min) {
 		this.min = min;
 	}
-	
-	/**
-	 * Getter de la variable max
-	 * @return max
-	 */
 	public double getMax() {
 		return max;
 	}
-	
-	/**
-	 * Setter de la variable max
-	 * @param nouvelle valeur de max
-	 */
 	public void setMax(double max) {
 		this.max = max;
 	}
-	
-	/**
-	 * Getter de la variable valeurTheorique
-	 * @return valeurTheorique
-	 */
-	public double getValeurTheorique() {
-		return valeurTheorique;
-	}
-	
-	/**
-	 * Setter de la variable valeurTheorique
-	 * @param nouvelle valeur de valeurTheorique
-	 */
-	public void setValeurTheorique(double valeurTheorique) {
-		this.valeurTheorique = valeurTheorique;
-	}
-	
-	/**
-	 * Getter de la variable quantite
-	 * @return quantite
-	 */
 	public int getQuantite() {
 		return quantite;
 	}
-	
-	/**
-	 * Setter de la variable quantite
-	 * @param nouvelle valeur de quantite
-	 */
 	protected void setQuantite(int quantite) {
 		this.quantite = quantite;
+	}
+
+	public double getEffectifReel() {
+		return effectifReel;
+	}
+
+	public void setEffectifReel(double effectifReel) {
+		this.effectifReel = effectifReel;
+	}
+
+	public double getEffectifTheorique() {
+		return effectifTheorique;
+	}
+
+	public void setEffectifTheorique(double effectifTheorique) {
+		this.effectifTheorique = effectifTheorique;
 	}
 	
 }

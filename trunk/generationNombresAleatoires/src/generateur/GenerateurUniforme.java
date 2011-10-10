@@ -1,5 +1,8 @@
 package generateur;
 
+import java.util.ArrayList;
+import java.util.Random;
+
 /**
  * Classe qui permet de générer des nombres aléatoires suivant la loi uniforme
  * 
@@ -7,29 +10,36 @@ package generateur;
  * 
  */
 public class GenerateurUniforme extends Generateur {
+	
+	public GenerateurUniforme(){
+		nom = "Loi Uniforme";
+		nombreClasses = 10;
+		listeValeurs = new ArrayList<Double>();
+		listeClasses = new ArrayList<Classe>();
+	}
 
 	/**
-	 * Méthode qui génére des nombres aléatoire entre 0 et 1 suivant la loi uniforme
+	 * Méthode qui génère des nombres aléatoire entre 0 et 1 suivant la loi uniforme
 	 * 
-	 * @param nombreGeneration: le nombre de chiffre que l'on souhaite générer
+	 * @param nombreAGenerer: le nombre de chiffre que l'on souhaite générer
 	 * @return la liste des nombres générés aléatoirement
 	 */
 	@Override
-	public double[] generationNombre(int nombreGeneration) {
-		listeNombres = new double[nombreGeneration];
+	public ArrayList<Double> generer(int nombreAGenerer) {
+		listeValeurs = new ArrayList<Double>();
+		Random random = new Random();
+		nbGenerations = nombreAGenerer;
 
-		for (int i = 0; i < nombreGeneration; i++) {
-			listeNombres[i] = Math.random();
+		for (int i = 0; i < nombreAGenerer; i++) {
+			listeValeurs.add(random.nextDouble());
 		}
 
-		return listeNombres;
+		return listeValeurs;
 	}
 
 	@Override
-	public double calculValeurTheorique() {
-		int valeurTheorique = 0;
-		valeurTheorique = 1 / getNombreClasses();
-		return valeurTheorique;
+	public double calculValeurTheorique(double valMin, double valMax) {
+		return (double)1 / getNombreClasses() * nbGenerations ;
 	}
 
 }

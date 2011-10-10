@@ -1,5 +1,7 @@
 package generateur;
 
+import java.util.ArrayList;
+
 /**
  * Classe qui permet de générer des nombres aléatoires suivant la loi exponentielle
  * @author Kévin
@@ -8,13 +10,13 @@ package generateur;
 public class GenereteurExponentielle extends Generateur{
 
 	@Override
-	public double[] generationNombre(int nombreGeneration) {
+	public ArrayList<Double> generer(int nombreGeneration) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public double calculValeurTheorique() {
+	public double calculValeurTheorique(double valMin, double valMax) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
