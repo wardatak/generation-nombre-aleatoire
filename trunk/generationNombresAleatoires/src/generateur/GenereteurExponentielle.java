@@ -5,6 +5,6 @@ package generateur;
  * @author Kévin
  *
  */
-public class LoiExponentielle extends Loi{
+public class GenereteurExponentielle extends Generateur{
 
 }
