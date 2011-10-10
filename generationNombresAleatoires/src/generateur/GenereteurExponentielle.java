@@ -14,7 +14,7 @@ public class GenereteurExponentielle extends Generateur{
 	}
 
 	@Override
-	public double calculValeurTehorique() {
+	public double calculValeurTheorique() {
 		// TODO Auto-generated method stub
 		return 0;
 	}
