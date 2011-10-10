@@ -18,7 +18,7 @@ public class ClasseNombre {
 	 * @param valMax : valeur maximum de la classe
 	 * @param valTheorique : valeur theorique pour la classe
 	 */
-	public void classeNombre(double valMin, double valMax, double valTheorique){
+	public ClasseNombre(double valMin, double valMax, double valTheorique){
 		setMin(valMin);
 		setMax(valMax);
 		setValeurTheorique(valTheorique);
@@ -30,7 +30,7 @@ public class ClasseNombre {
 	 * @param valMin : valeur minimum de la classe
 	 * @param valTheorique : valeur theorique pour la classe
 	 */
-	public void classeNombre(double valMin, double valTheorique){
+	public ClasseNombre(double valMin, double valTheorique){
 		setMin(valMin);
 		setMax(-1);
 		setValeurTheorique(valTheorique);
