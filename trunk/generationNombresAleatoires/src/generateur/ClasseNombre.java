@@ -69,27 +69,66 @@ public class ClasseNombre {
 		return result;
 	}
 	
+	/**
+	 * Getter de la variable min
+	 * @return min
+	 */
 	public double getMin() {
 		return min;
 	}
+	
+	/**
+	 * Setter de la variable min
+	 * @param nouvelle valeur de min
+	 */
 	public void setMin(double min) {
 		this.min = min;
 	}
+	
+	/**
+	 * Getter de la variable max
+	 * @return max
+	 */
 	public double getMax() {
 		return max;
 	}
+	
+	/**
+	 * Setter de la variable max
+	 * @param nouvelle valeur de max
+	 */
 	public void setMax(double max) {
 		this.max = max;
 	}
+	
+	/**
+	 * Getter de la variable valeurTheorique
+	 * @return valeurTheorique
+	 */
 	public double getValeurTheorique() {
 		return valeurTheorique;
 	}
+	
+	/**
+	 * Setter de la variable valeurTheorique
+	 * @param nouvelle valeur de valeurTheorique
+	 */
 	public void setValeurTheorique(double valeurTheorique) {
 		this.valeurTheorique = valeurTheorique;
 	}
+	
+	/**
+	 * Getter de la variable quantite
+	 * @return quantite
+	 */
 	public int getQuantite() {
 		return quantite;
 	}
+	
+	/**
+	 * Setter de la variable quantite
+	 * @param nouvelle valeur de quantite
+	 */
 	protected void setQuantite(int quantite) {
 		this.quantite = quantite;
 	}
