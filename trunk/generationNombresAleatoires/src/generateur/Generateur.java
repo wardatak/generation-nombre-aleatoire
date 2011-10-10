@@ -1,11 +1,17 @@
 package generateur;
 
+import java.util.ArrayList;
+
 /**
  * Classe mère pour la génération de nombres
  * @author Kévin
  *
  */
 public abstract class Generateur {
+	
+	/**********************
+	 *      VARIBLES      *
+	 **********************/
 	
 	/*
 	 * Nom de la loi utilisée
@@ -16,6 +22,31 @@ public abstract class Generateur {
 	 * Liste de nombres générés aléatoirement
 	 */
 	protected double[] listeNombres;
+	
+	/*
+	 * Le nombre de classes
+	 */
+	protected int nombreClasses;
+	
+	/*
+	 * La liste des classes 
+	 */
+	protected ArrayList<ClasseNombre> listeClasses;
+	
+	/*
+	 * Valeur min pour cette loi
+	 */
+	protected double valeurMinLoi;
+	
+	/*
+	 *  Valeur max pour cette loi
+	 */
+	protected double valeurMaxLoi;
+	
+	/*
+	 * Pas entre 2 classes
+	 */
+	protected double pas;
 	
 	/**
 	 * Getter pour la variable Nom
@@ -50,6 +81,22 @@ public abstract class Generateur {
 	}
 	
 	/**
+	 * Getter pour la variable nombreClasses
+	 * @return le nombre de classes
+	 */
+	public int getNombreClasses() {
+		return nombreClasses;
+	}
+
+	/**
+	 * Setter pour la variable nombreClasses
+	 * @param nombreClasses: le nouveau nombre de classes
+	 */
+	public void setNombreClasses(int nombreClasses) {
+		this.nombreClasses = nombreClasses;
+	}
+	
+	/**
 	 * Methode qui genère des nombres aléatoire
 	 * @param nombreGeneration: le nombre de nombre générés aléatoirement
 	 * @return un tableau de nombres
@@ -60,6 +107,28 @@ public abstract class Generateur {
 	 * Methode qui calcule la valeur théorique utilisé pour le test du Khi²
 	 * @return la valeur théorique
 	 */
-	public abstract double calculValeurTehorique();
+	public abstract double calculValeurTheorique();
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public ArrayList<ClasseNombre> genererClasses(){
+		ClasseNombre nb;
+		double valMin;
+		double valMax;
+		for (int i=0; i<getNombreClasses(); i++){
+			pas = (valeurMaxLoi - valeurMinLoi) / getNombreClasses();
+			valMin = valeurMinLoi + i*pas;
+			valMax = valeurMinLoi + (i+1)*pas;
+			if (i == getNombreClasses()-1){
+				nb = new ClasseNombre(valMin, valMax, calculValeurTheorique());
+			}else{
+				nb = new ClasseNombre(valMin, calculValeurTheorique());
+			}
+			listeClasses.add(nb);
+		}
+		return listeClasses;
+	}
 
 }
