@@ -1,6 +1,7 @@
 package generateur;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Classe mère pour la génération de nombres
@@ -13,39 +14,28 @@ public abstract class Generateur {
 	 *      VARIBLES      *
 	 **********************/
 	
-	/*
-	 * Nom de la loi utilisée
-	 */
+	/** Nom de la loi utilisée */
 	protected String nom;
 
-	/*
-	 * Liste de nombres générés aléatoirement
-	 */
-	protected double[] listeNombres;
+	/** Liste des valeurs générées aléatoirement */
+	protected ArrayList<Double> listeValeurs;
 	
-	/*
-	 * Le nombre de classes
-	 */
+	/** Le nombre de générations à réaliser */
+	protected int nbGenerations;
+	
+	/** Le nombre de classes */
 	protected int nombreClasses;
 	
-	/*
-	 * La liste des classes 
-	 */
-	protected ArrayList<ClasseNombre> listeClasses;
+	/** La liste des classes */
+	protected ArrayList<Classe> listeClasses;
 	
-	/*
-	 * Valeur min pour cette loi
-	 */
+	/** Valeur min pour cette loi */
 	protected double valeurMinLoi;
 	
-	/*
-	 *  Valeur max pour cette loi
-	 */
+	/**  Valeur max pour cette loi */
 	protected double valeurMaxLoi;
 	
-	/*
-	 * Pas entre 2 classes
-	 */
+	/** Pas entre 2 classes */
 	protected double pas;
 	
 	/**
@@ -65,19 +55,19 @@ public abstract class Generateur {
 	}
 
 	/**
-	 * Getter pour la variable listeNombres
-	 * @return la liste des nombres
+	 * Getter pour la variable listeValeurs
+	 * @return la liste des valeurs
 	 */
-	public double[] getListeNombres() {
-		return listeNombres;
+	public ArrayList<Double> getListeValeurs() {
+		return listeValeurs;
 	}
 
 	/**
-	 * Setter pour la variable listeNombres
-	 * @param listeNombres: la nouvelle liste des nombres
+	 * Setter pour la variable listeValeurs
+	 * @param listeNombres: la nouvelle liste des valeurs
 	 */
-	public void setListeNombres(double[] listeNombres) {
-		this.listeNombres = listeNombres;
+	public void setListeNombres(ArrayList<Double> listeValeurs) {
+		this.listeValeurs = listeValeurs;
 	}
 	
 	/**
@@ -96,37 +86,60 @@ public abstract class Generateur {
 		this.nombreClasses = nombreClasses;
 	}
 	
+	public int getNbGenerations() {
+		return nbGenerations;
+	}
+
+	public void setNbGenerations(int nbGenerations) {
+		this.nbGenerations = nbGenerations;
+	}
+
 	/**
 	 * Methode qui genère des nombres aléatoire
 	 * @param nombreGeneration: le nombre de nombre générés aléatoirement
 	 * @return un tableau de nombres
 	 */
-	public abstract double[] generationNombre(int nombreGeneration);
+	public abstract ArrayList<Double> generer(int nombreGeneration);
 	
 	/**
 	 * Methode qui calcule la valeur théorique utilisé pour le test du Khi²
 	 * @return la valeur théorique
 	 */
-	public abstract double calculValeurTheorique();
+	public abstract double calculValeurTheorique(double valMin, double valMax);
 	
 	/**
-	 * 
+	 * Methode qui calcule la valeur réelle utilisé pour le test du Khi²
+	 * @return la valeur réelle
+	 */
+	public double calculValeurReelle(double valMin, double valMax){
+		double resultat = 0;
+		for(int i = 0; i < listeValeurs.size(); i++){
+			if (listeValeurs.get(i) >= valMin){
+				if(listeValeurs.get(i) < valMax){
+					resultat++;
+				}
+			}
+		}
+		return resultat;
+	}
+	
+	/**
+	 * Renvoie une liste de classes initialisées
 	 * @return
 	 */
-	public ArrayList<ClasseNombre> genererClasses(){
-		ClasseNombre nb;
+	public ArrayList<Classe> genererClasses(){
+		Classe cl;
 		double valMin;
 		double valMax;
+		rechercherMinMaxLoi(listeValeurs);
 		for (int i=0; i<getNombreClasses(); i++){
 			pas = (valeurMaxLoi - valeurMinLoi) / getNombreClasses();
 			valMin = valeurMinLoi + i*pas;
 			valMax = valeurMinLoi + (i+1)*pas;
-			if (i == getNombreClasses()-1){
-				nb = new ClasseNombre(valMin, valMax, calculValeurTheorique());
-			}else{
-				nb = new ClasseNombre(valMin, calculValeurTheorique());
-			}
-			listeClasses.add(nb);
+			
+			cl = new Classe(valMin, valMax, calculValeurReelle(valMin, valMax), calculValeurTheorique(valMin, valMax));
+			
+			listeClasses.add(cl);
 		}
 		return listeClasses;
 	}
@@ -135,15 +148,15 @@ public abstract class Generateur {
 	 * Recherche des valeurs min et max du tableau de valeurs generees
 	 * @param tab : tableau de valeurs generees
 	 */
-	public void rechercherMinMaxLoi(double[] tab){
-		double min = tab[0];
-		double max = tab[0];
-		for(int i = 1 ; i < tab.length ; i++){
-			if(min > tab[i]){
-				min = tab[i];
+	public void rechercherMinMaxLoi(List<Double> rslt){
+		double min = rslt.get(0);
+		double max = rslt.get(0);
+		for(int i = 1 ; i < rslt.size() ; i++){
+			if(min > rslt.get(i)){
+				min = rslt.get(i);
 			}
-			if(max < tab[i]){
-				max = tab[i];
+			if(max < rslt.get(i)){
+				max = rslt.get(i);
 			}	
 		}
 		valeurMinLoi = min;
