@@ -8,16 +8,13 @@ package generateur;
  */
 public class GenerateurUniforme extends Generateur {
 
-	protected double[] listeNombres;
-
 	/**
-	 * Méthode qui génére des nombres aléatoire entre 0 et 1 suivant la loi
-	 * uniforme
+	 * Méthode qui génére des nombres aléatoire entre 0 et 1 suivant la loi uniforme
 	 * 
-	 * @param nombreGeneration
-	 *            : le nombre de chiffre que l'on souhaite générer
+	 * @param nombreGeneration: le nombre de chiffre que l'on souhaite générer
 	 * @return la liste des nombres générés aléatoirement
 	 */
+	@Override
 	public double[] generationNombre(int nombreGeneration) {
 		listeNombres = new double[nombreGeneration];
 
@@ -29,9 +26,10 @@ public class GenerateurUniforme extends Generateur {
 	}
 
 	@Override
-	public double calculValeurTehorique() {
-		// TODO Auto-generated method stub
-		return 0;
+	public double calculValeurTheorique() {
+		int valeurTheorique = 0;
+		valeurTheorique = 1 / getNombreClasses();
+		return valeurTheorique;
 	}
 
 }

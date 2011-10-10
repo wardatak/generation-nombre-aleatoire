@@ -14,7 +14,7 @@ public class GenerateurPoisson extends Generateur{
 	}
 
 	@Override
-	public double calculValeurTehorique() {
+	public double calculValeurTheorique() {
 		// TODO Auto-generated method stub
 		return 0;
 	}
