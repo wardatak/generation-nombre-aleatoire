@@ -5,6 +5,6 @@ package generateur;
  * @author Kévin
  *
  */
-public class LoiWeibull extends Loi{
+public class GenerateurWeibull extends Generateur{
 
 }
