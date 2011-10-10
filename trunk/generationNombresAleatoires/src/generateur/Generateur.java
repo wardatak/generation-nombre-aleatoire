@@ -130,5 +130,23 @@ public abstract class Generateur {
 		}
 		return listeClasses;
 	}
-
+	
+	/**
+	 * Recherche des valeurs min et max du tableau de valeurs generees
+	 * @param tab : tableau de valeurs generees
+	 */
+	public void rechercherMinMaxLoi(double[] tab){
+		double min = tab[0];
+		double max = tab[0];
+		for(int i = 1 ; i < tab.length ; i++){
+			if(min > tab[i]){
+				min = tab[i];
+			}
+			if(max < tab[i]){
+				max = tab[i];
+			}	
+		}
+		valeurMinLoi = min;
+		valeurMaxLoi = max;
+	}
 }
