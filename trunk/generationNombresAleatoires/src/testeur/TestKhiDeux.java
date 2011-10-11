@@ -11,8 +11,9 @@ public class TestKhiDeux {
 	
 	public boolean test(Generateur gen){
 		
-        // on calcule Q
+        
         Double q = 0.0;
+      //Calcul de Q
         for (int i = 0; i < gen.getNombreClasses(); i++) {
         	Double valeurTheorique = gen.getListeClasses().get(i).getEffectifTheorique();
         	Double valeurEffective = gen.getListeClasses().get(i).getEffectifReel();
@@ -24,16 +25,18 @@ public class TestKhiDeux {
 
         //Precision : colonne de la table du Khi
         // 0 => 10%   1 => 5%   2 => 2.5%   3 => 1%
-        int precision = 1;
+        int precision = 3;
         
         //Calcul du degré de liberté
         int degres = (gen.getNombreClasses() - 1 - gen.getNbParametres());
-        if (q > TableduKhi[degres][1]) {
-                System.out.println("Le test du Khi² valide la génération loi "+gen.getNom());
+        
+        //Verification dans la table du khi²
+        if (q > TableduKhi[degres][precision]) {
+            System.out.println("Le test du Khi² ne valide pas la génération de la "+gen.getNom());
         } else {
-                System.out.println("Le test du Khi² refute la génération loi "+gen.getNom());
+            System.out.println("Le test du Khi² valide la génération de la "+gen.getNom());
         }
-        System.out.println("Q == "+q+"Q théorique == "+TableduKhi[degres][precision]+" degré de liberté == "+degres);
+        System.out.println("Q réel == "+q+" Q théorique (table khi²) == "+TableduKhi[degres][precision]+" degré de liberté == "+degres);
 		return false;
 	}
 	
