@@ -29,6 +29,7 @@ import testeur.TestKhiDeux;
 public class IHM extends javax.swing.JFrame {
 
 	XYSeriesCollection dataset = new XYSeriesCollection();
+	JFreeChart chart;
 	
 	Color rouge = new Color(255, 0, 0);
 	Color vert = new Color(0, 255, 0);
@@ -50,7 +51,7 @@ public class IHM extends javax.swing.JFrame {
     private void initComponents() {
     	
     	// Genere le graphique
-    	JFreeChart chart = ChartFactory.createXYLineChart(
+    	chart = ChartFactory.createXYLineChart(
     		"GRAPHIQUE", 	// Titre
     		"Classes", 	// Nom de l'axe X
     		"Echantillon", 		// Nom de l'axe Y
@@ -307,7 +308,20 @@ public class IHM extends javax.swing.JFrame {
     }
     
     private void boutonGraphActionPerformed(java.awt.event.ActionEvent evt) {
-    	// TODO add your handling code here:
+    		
+    	JFreeChart chart2 = ChartFactory.createXYLineChart(
+		    "GRAPHIQUE", 	  	// Titre
+		    "Classes", 			// Nom de l'axe X
+    		"Echantillon", 		// Nom de l'axe Y
+    		dataset,  			// Dataset
+    		PlotOrientation.VERTICAL, // Orientation
+    		true, // Affichage de la legende
+    		true, // Utilisation du tooltip
+    		false // pas de generation d'URL
+    		    	);
+    	this.chart.fireChartChanged();
+    	this.panelGraphique = new ChartPanel(chart);
+    	this.panelGraphique.repaint();
     }
 
     private void genererGraphique(Generateur generateur, String name){
@@ -326,7 +340,7 @@ public class IHM extends javax.swing.JFrame {
     	
     	
     	// Genere le graphique
-    	JFreeChart chart = ChartFactory.createXYLineChart(
+    	chart = ChartFactory.createXYLineChart(
     		name, 	  		// Titre
     		"Classes", 	// Nom de l'axe X
     		"Echantillon", 		// Nom de l'axe Y
@@ -337,10 +351,7 @@ public class IHM extends javax.swing.JFrame {
     		false // pas de generation d'URL
     	);
     	
-    	chart.setTitle(name);
-    	
-    	panelGraphique.removeAll();
-    	panelGraphique = new ChartPanel(chart);
+    	this.panelGraphique = new ChartPanel(chart);
     	
     }
 
