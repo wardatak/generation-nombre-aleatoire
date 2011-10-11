@@ -1,17 +1,11 @@
 package testeur;
 
-
-import java.util.logging.Logger;
-
 import generateur.Generateur;
 
 public class TestKhiDeux {
-	
-	Logger logger;
-	
-	public boolean test(Generateur gen){
 		
-        
+	public boolean test(Generateur gen){
+		        
         Double q = 0.0;
       //Calcul de Q
         for (int i = 0; i < gen.getNombreClasses(); i++) {
