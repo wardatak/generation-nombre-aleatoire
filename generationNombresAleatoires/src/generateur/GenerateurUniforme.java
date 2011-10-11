@@ -10,6 +10,7 @@ import java.util.Random;
  * 
  */
 public class GenerateurUniforme extends Generateur {
+	double cumul;
 	
 	public GenerateurUniforme(){
 		nom = "Loi Uniforme";
@@ -17,6 +18,7 @@ public class GenerateurUniforme extends Generateur {
 		nbParametres = 0;
 		listeValeurs = new ArrayList<Double>();
 		listeClasses = new ArrayList<Classe>();
+		cumul = 0;
 	}
 
 	/**
@@ -40,7 +42,8 @@ public class GenerateurUniforme extends Generateur {
 
 	@Override
 	public double calculValeurTheorique(double valMin, double valMax) {
-		return (double)1 / getNombreClasses() * nbGenerations ;
+		cumul += (double)1 / getNombreClasses() * nbGenerations ;
+		return cumul;
 	}
 
 }
