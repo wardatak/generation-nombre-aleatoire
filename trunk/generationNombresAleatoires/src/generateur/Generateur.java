@@ -62,10 +62,8 @@ public abstract class Generateur {
 	public double calculValeurReelle(double valMin, double valMax){
 		double resultat = 0;
 		for(int i = 0; i < listeValeurs.size(); i++){
-			if (listeValeurs.get(i) >= valMin){
-				if(listeValeurs.get(i) < valMax){
-					resultat++;
-				}
+			if(listeValeurs.get(i) < valMax){
+				resultat++;
 			}
 		}
 		return resultat;

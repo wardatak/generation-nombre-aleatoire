@@ -413,10 +413,10 @@ private void boutonWeibullActionPerformed(java.awt.event.ActionEvent evt) {
 private void genererGraphique(Generateur generateur, String name){
 	XYSeries series = new XYSeries("XY Chart");
 	series.add(0, 0);
-	int valeur = 0;
+	double valeur = 0;
 	ArrayList<Classe> list = generateur.getListeClasses();
 	for (int i=1; i<list.size()+1; i++){
-		valeur += list.get(i-1).getEffectifReel();
+		valeur = list.get(i-1).getEffectifReel();
 		series.add(i,(double) valeur);
 		
 	}
