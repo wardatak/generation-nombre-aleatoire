@@ -5,15 +5,13 @@
  */
 package ihm;
 
+import java.awt.Color;
+import java.util.ArrayList;
+
 import generateur.Classe;
 import generateur.Generateur;
-import generateur.GenerateurUniforme;
-import generateur.GenerateurNormale;
-import generateur.GenerateurPoisson;
-import generateur.GenerateurWeibull;
 import generateur.GenerateurExponentielle;
-
-import java.util.ArrayList;
+import generateur.GenerateurUniforme;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -29,26 +27,17 @@ import testeur.TestKhiDeux;
  * @author Kévin
  */
 public class IHM extends javax.swing.JFrame {
-	
-	javax.swing.JLabel[]  tabLabel = new javax.swing.JLabel[10];
+
 	XYSeriesCollection dataset = new XYSeriesCollection();
+	
+	Color rouge = new Color(255, 0, 0);
+	Color vert = new Color(0, 255, 0);
+	Color rougeF = new Color(153, 0, 0);
+	Color vertF = new Color(0, 51, 0);
 	
     /** Creates new form IHM */
     public IHM() {
         initComponents();
-        
-        // creation d'un tableau pour les labels des classes
-        tabLabel[0] = labelClasse1;
-        tabLabel[1] = labelClasse2;
-        tabLabel[2] = labelClasse3;
-        tabLabel[3] = labelClasse4;
-        tabLabel[4] = labelClasse5;
-        tabLabel[5] = labelClasse6;
-        tabLabel[6] = labelClasse7;
-        tabLabel[7] = labelClasse8;
-        tabLabel[8] = labelClasse9;
-        tabLabel[9] = labelClasse10;
-        		
     }
 
     /** This method is called from within the constructor to
@@ -59,17 +48,20 @@ public class IHM extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">
     private void initComponents() {
+    	
+    	// Genere le graphique
+    	JFreeChart chart = ChartFactory.createXYLineChart(
+    		"GRAPHIQUE", 	// Titre
+    		"Classes", 	// Nom de l'axe X
+    		"Echantillon", 		// Nom de l'axe Y
+    		dataset,  		// Dataset
+    		PlotOrientation.VERTICAL, // Orientation
+    		true, // Affichage de la legende
+    		true, // Utilisation du tooltip
+    		false // pas de generation d'URL
+    	);
 
-    	panelGraphique = new ChartPanel(ChartFactory.createXYLineChart(
-    			"GRAPHIQUE", 	// Titre
-    			"Echantillon", 	// Nom de l'axe X
-    			"Classes", 		// Nom de l'axe Y
-    			dataset, 		 // Dataset
-    			PlotOrientation.VERTICAL, // Orientation
-    			true, // Affichage de la legende
-    			true, // Utilisation du tooltip
-    			false // pas de generation d'URL
-    		));
+        panelGraphique = new ChartPanel(chart);
         boutonUniforme = new javax.swing.JButton();
         textFieldEchantillon = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
@@ -77,29 +69,11 @@ public class IHM extends javax.swing.JFrame {
         boutonExponentielle = new javax.swing.JButton();
         boutonPoisson = new javax.swing.JButton();
         boutonWeibull = new javax.swing.JButton();
-        jSeparator1 = new javax.swing.JSeparator();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
-        labelClasse3 = new javax.swing.JLabel();
-        labelClasse8 = new javax.swing.JLabel();
-        labelClasse1 = new javax.swing.JLabel();
-        labelClasse6 = new javax.swing.JLabel();
-        labelClasse2 = new javax.swing.JLabel();
-        labelClasse7 = new javax.swing.JLabel();
-        labelClasse10 = new javax.swing.JLabel();
-        labelClasse9 = new javax.swing.JLabel();
-        labelClasse5 = new javax.swing.JLabel();
-        labelClasse4 = new javax.swing.JLabel();
         jToolBar1 = new javax.swing.JToolBar();
+        panelRouge = new javax.swing.JPanel();
+        panelVert = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        boutonGraph = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Géneration de nombres aléatoires");
@@ -111,7 +85,7 @@ public class IHM extends javax.swing.JFrame {
         panelGraphique.setLayout(panelGraphiqueLayout);
         panelGraphiqueLayout.setHorizontalGroup(
             panelGraphiqueLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 496, Short.MAX_VALUE)
+            .addGap(0, 484, Short.MAX_VALUE)
         );
         panelGraphiqueLayout.setVerticalGroup(
             panelGraphiqueLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -124,6 +98,8 @@ public class IHM extends javax.swing.JFrame {
                 boutonUniformeActionPerformed(evt);
             }
         });
+        
+        textFieldEchantillon.setText("100");
 
         jLabel1.setText("Taille de l'échantillon à générer:");
 
@@ -155,59 +131,46 @@ public class IHM extends javax.swing.JFrame {
             }
         });
 
-        jLabel2.setText("Classe 1:");
-
-        jLabel3.setText("Classe 2:");
-
-        jLabel4.setText("Classe 3:");
-
-        jLabel5.setText("Classe 4:");
-
-        jLabel6.setText("Classe 5:");
-
-        jLabel7.setText("Classe 8:");
-
-        jLabel8.setText("Classe 6:");
-
-        jLabel9.setText("Classe 7:");
-
-        jLabel10.setText("Classe 10:");
-
-        jLabel11.setText("Classe 9:");
-
-        jLabel12.setText("Classement de l'échantillon par classes :");
-
-        labelClasse3.setBackground(new java.awt.Color(255, 255, 255));
-        labelClasse3.setText("                    ");
-
-        labelClasse8.setBackground(new java.awt.Color(255, 255, 255));
-        labelClasse8.setText("                    ");
-
-        labelClasse1.setBackground(new java.awt.Color(255, 255, 255));
-        labelClasse1.setText("                    ");
-
-        labelClasse6.setBackground(new java.awt.Color(255, 255, 255));
-        labelClasse6.setText("                    ");
-
-        labelClasse2.setBackground(new java.awt.Color(255, 255, 255));
-        labelClasse2.setText("                    ");
-
-        labelClasse7.setBackground(new java.awt.Color(255, 255, 255));
-        labelClasse7.setText("                    ");
-
-        labelClasse10.setBackground(new java.awt.Color(255, 255, 255));
-        labelClasse10.setText("                    ");
-
-        labelClasse9.setBackground(new java.awt.Color(255, 255, 255));
-        labelClasse9.setText("                    ");
-
-        labelClasse5.setBackground(new java.awt.Color(255, 255, 255));
-        labelClasse5.setText("                    ");
-
-        labelClasse4.setBackground(new java.awt.Color(255, 255, 255));
-        labelClasse4.setText("                    ");
-
         jToolBar1.setRollover(true);
+
+        panelRouge.setBackground(new java.awt.Color(153, 0, 0));
+        panelRouge.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        panelRouge.setPreferredSize(new java.awt.Dimension(30, 30));
+
+        javax.swing.GroupLayout panelRougeLayout = new javax.swing.GroupLayout(panelRouge);
+        panelRouge.setLayout(panelRougeLayout);
+        panelRougeLayout.setHorizontalGroup(
+            panelRougeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 28, Short.MAX_VALUE)
+        );
+        panelRougeLayout.setVerticalGroup(
+            panelRougeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 28, Short.MAX_VALUE)
+        );
+
+        panelVert.setBackground(new java.awt.Color(0, 51, 0));
+        panelVert.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        panelVert.setPreferredSize(new java.awt.Dimension(30, 30));
+
+        javax.swing.GroupLayout panelVertLayout = new javax.swing.GroupLayout(panelVert);
+        panelVert.setLayout(panelVertLayout);
+        panelVertLayout.setHorizontalGroup(
+            panelVertLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 28, Short.MAX_VALUE)
+        );
+        panelVertLayout.setVerticalGroup(
+            panelVertLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 28, Short.MAX_VALUE)
+        );
+
+        jLabel2.setText("Verification du test du Khi² :");
+        
+        boutonGraph.setText("Nettoyer graphique");
+        boutonGraph.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                boutonGraphActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -218,237 +181,182 @@ public class IHM extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(boutonUniforme, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(boutonNormale, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(boutonWeibull, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(boutonPoisson, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(boutonExponentielle, javax.swing.GroupLayout.Alignment.LEADING))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(13, 13, 13)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(jLabel3)
-                                                .addComponent(jLabel5)
-                                                .addComponent(jLabel4)
-                                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addComponent(jLabel11)
-                                                    .addComponent(jLabel7)
-                                                    .addComponent(jLabel9)
-                                                    .addComponent(jLabel8)
-                                                    .addComponent(jLabel10)
-                                                    .addComponent(jLabel6)))
-                                            .addComponent(jLabel2))
-                                        .addGap(18, 18, 18)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(labelClasse2)
-                                                .addComponent(labelClasse4)
-                                                .addComponent(labelClasse3)
-                                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addComponent(labelClasse9)
-                                                    .addComponent(labelClasse8)
-                                                    .addComponent(labelClasse7)
-                                                    .addComponent(labelClasse6)
-                                                    .addComponent(labelClasse10)
-                                                    .addComponent(labelClasse5)))
-                                            .addComponent(labelClasse1)))
-                                    .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.TRAILING))))
-                        .addGap(10, 10, 10)
-                        .addComponent(panelGraphique, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())
+                            .addComponent(boutonUniforme, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(boutonNormale, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(boutonWeibull, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(boutonPoisson, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(boutonExponentielle, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addGap(18, 18, 18)
+                        .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(panelVert, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(panelRouge, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(boutonGraph)
+                            .addComponent(jLabel2))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(panelGraphique, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
-                        .addGap(18, 18, 18)
-                        .addComponent(textFieldEchantillon, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 245, Short.MAX_VALUE)
-                        .addGap(236, 236, 236))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(textFieldEchantillon, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(textFieldEchantillon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel1)
-                            .addComponent(textFieldEchantillon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panelGraphique, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(35, 35, 35)
-                                .addComponent(jLabel12)
-                                .addGap(24, 24, 24)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(boutonUniforme)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(boutonNormale)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(boutonExponentielle)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(boutonPoisson)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(boutonWeibull))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(5, 5, 5)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(labelClasse2)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(labelClasse3)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(labelClasse4)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(labelClasse5)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(labelClasse6)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(labelClasse7)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(labelClasse8)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(labelClasse9)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(labelClasse10))
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                                    .addComponent(jLabel2)
-                                                    .addComponent(labelClasse1))
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(jLabel3)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(jLabel4)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(jLabel5)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(jLabel6)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(jLabel8)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(jLabel9)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(jLabel7)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(jLabel11)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(jLabel10))))))
+                                .addGap(89, 89, 89)
+                                .addComponent(boutonUniforme)
+                                .addGap(18, 18, 18)
+                                .addComponent(boutonNormale)
+                                .addGap(18, 18, 18)
+                                .addComponent(boutonExponentielle)
+                                .addGap(18, 18, 18)
+                                .addComponent(boutonPoisson)
+                                .addGap(18, 18, 18)
+                                .addComponent(boutonWeibull))
                             .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap())
+                                .addGap(90, 90, 90)
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(panelRouge, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(26, 26, 26)
+                                .addComponent(panelVert, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(26, 26, 26)
+                                .addComponent(boutonGraph))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(61, 61, 61)
+                                .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(148, 148, 148))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(panelGraphique, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())))
         );
-
         pack();
     }// </editor-fold>
 
-private void boutonUniformeActionPerformed(java.awt.event.ActionEvent evt) {
+    private void boutonUniformeActionPerformed(java.awt.event.ActionEvent evt) {
 
-	// generation des valeurs aléatoires
-	GenerateurUniforme generateur = new GenerateurUniforme();
-	generateur.generer(Integer.parseInt(this.textFieldEchantillon.getText()));
-	
-	// rangement des valeurs aléatoire dans les classes
-	ArrayList<Classe> list = generateur.genererClasses();
-	
-	//affichage des classes
-	for (int i=0; i<10; i++){
-		tabLabel[i].setText(Integer.toString((int) list.get(i).getEffectifReel()));
-	}
-	
-	// test du Khi²
-	TestKhiDeux khi2 = new TestKhiDeux();
-	khi2.test(generateur);
-	
-	genererGraphique(generateur, generateur.getNom());
-	
-}
+    	// generation des valeurs aléatoires
+    	GenerateurUniforme generateur = new GenerateurUniforme();
+    	generateur.generer(getTextField());
+    	
+    	// rangement des valeurs aléatoire dans les classes
+    	ArrayList<Classe> list = generateur.genererClasses();
+    	
+    	// test du Khi²
+    	TestKhiDeux khi2 = new TestKhiDeux();
+    	khi2.test(generateur);
+    	boolean test = khi2.test(generateur);
+    	if (test == true){
+    		this.panelVert.setBackground(vert);
+    		this.panelRouge.setBackground(rougeF);
+    	}else{
+    		this.panelRouge.setBackground(rouge);
+    		this.panelVert.setBackground(vertF);
+    	}
+    	
+    	genererGraphique(generateur, generateur.getNom());
+    	
+    }
 
-private void boutonNormaleActionPerformed(java.awt.event.ActionEvent evt) {
-// TODO add your handling code here:
-}
+    private void boutonNormaleActionPerformed(java.awt.event.ActionEvent evt) {
+    // TODO add your handling code here:
+    }
 
-private void boutonExponentielleActionPerformed(java.awt.event.ActionEvent evt) {
+    private void boutonExponentielleActionPerformed(java.awt.event.ActionEvent evt) {
 
-	// generation des valeurs aléatoires
-	GenerateurExponentielle generateur = new GenerateurExponentielle();
-	generateur.generer(Integer.parseInt(this.textFieldEchantillon.getText()));
-	
-	// rangement des valeurs aléatoire dans les classes
-	ArrayList<Classe> list = generateur.genererClasses();
-	
-	//affichage des classes
-	for (int i=0; i<10; i++){
-		tabLabel[i].setText(Integer.toString((int) list.get(i).getEffectifReel()));
-	}
-	
-	// test du Khi²
-	TestKhiDeux khi2 = new TestKhiDeux();
-	khi2.test(generateur);
-	
-	genererGraphique(generateur, generateur.getNom());
-	
-}
+    	// generation des valeurs aléatoires
+    	GenerateurExponentielle generateur = new GenerateurExponentielle();
+    	generateur.generer(getTextField());
+    	
+    	// rangement des valeurs aléatoire dans les classes
+    	ArrayList<Classe> list = generateur.genererClasses();
+    	
+    	// test du Khi²
+    	TestKhiDeux khi2 = new TestKhiDeux();
+    	boolean test = khi2.test(generateur);
+    	if (test == true){
+    		this.panelVert.setBackground(vert);
+    		this.panelRouge.setBackground(rougeF);
+    	}
+    	else{
+    		this.panelRouge.setBackground(rouge);
+    		this.panelVert.setBackground(vertF);
+    	}
+    	
+    	genererGraphique(generateur, generateur.getNom());
+    	
+    }
 
-private void boutonPoissonActionPerformed(java.awt.event.ActionEvent evt) {
-// TODO add your handling code here:
-}
+    private void boutonPoissonActionPerformed(java.awt.event.ActionEvent evt) {
+    // TODO add your handling code here:
+    }
 
-private void boutonWeibullActionPerformed(java.awt.event.ActionEvent evt) {
-// TODO add your handling code here:
-}
+    private void boutonWeibullActionPerformed(java.awt.event.ActionEvent evt) {
+    // TODO add your handling code here:
+    }
+    
+    private void boutonGraphActionPerformed(java.awt.event.ActionEvent evt) {
+    	// TODO add your handling code here:
+    }
 
-private void genererGraphique(Generateur generateur, String name){
-	XYSeries series = new XYSeries("XY Chart");
-	series.add(0, 0);
-	double valeur = 0;
-	ArrayList<Classe> list = generateur.getListeClasses();
-	for (int i=1; i<list.size()+1; i++){
-		valeur = list.get(i-1).getEffectifReel();
-		series.add(i,(double) valeur);
-		
-	}
-	
-	// Ajoute la série au dataset
-	dataset.addSeries(series);
-	
-	
-	// Genere le graphique
-	JFreeChart chart = ChartFactory.createXYLineChart(
-		name, 	  		// Titre
-		"Classes", 	// Nom de l'axe X
-		"Echantillon", 		// Nom de l'axe Y
-		dataset,  		// Dataset
-		PlotOrientation.VERTICAL, // Orientation
-		true, // Affichage de la legende
-		true, // Utilisation du tooltip
-		false // pas de generation d'URL
-	);
-	
-	chart.setTitle(name);
-	
-	panelGraphique = new ChartPanel(chart);
-	
-		/*try {
-			
-			ChartUtilities.writeChartAsJPEG(panelGraphique, chart, 496, 434);
-		} catch (IOException e) {
-			System.err.println("Problem occurred creating chart. "+e.getMessage());
-		}*/
-}
+    private void genererGraphique(Generateur generateur, String name){
+    	XYSeries series = new XYSeries("XY Chart");
+    	series.add(0, 0);
+    	double valeur = 0;
+    	ArrayList<Classe> list = generateur.getListeClasses();
+    	for (int i=1; i<list.size()+1; i++){
+    		valeur = list.get(i-1).getEffectifReel();
+    		series.add(i,(double) valeur);
+    		
+    	}
+    	
+    	// Ajoute la série au dataset
+    	dataset.addSeries(series);
+    	
+    	
+    	// Genere le graphique
+    	JFreeChart chart = ChartFactory.createXYLineChart(
+    		name, 	  		// Titre
+    		"Classes", 	// Nom de l'axe X
+    		"Echantillon", 		// Nom de l'axe Y
+    		dataset,  		// Dataset
+    		PlotOrientation.VERTICAL, // Orientation
+    		true, // Affichage de la legende
+    		true, // Utilisation du tooltip
+    		false // pas de generation d'URL
+    	);
+    	
+    	chart.setTitle(name);
+    	
+    	panelGraphique.removeAll();
+    	panelGraphique = new ChartPanel(chart);
+    	
+    }
 
+    
+    private int getTextField(){
+    	long valeur = Long.parseLong(textFieldEchantillon.getText());
+    	if (valeur < 100)
+    		valeur = 100;
+    	if (valeur > 1000000)
+    		valeur = 1000000;
+    	this.textFieldEchantillon.setText(String.valueOf(valeur));
+    	System.out.println("VALEUR >>>>>>>>>"+(int)valeur);
+    	return (int)valeur;
+    }
+    
+    
     /**
      * @param args the command line arguments
      */
@@ -486,35 +394,17 @@ private void genererGraphique(Generateur generateur, String name){
     }
     // Variables declaration - do not modify
     private javax.swing.JButton boutonExponentielle;
+    private javax.swing.JButton boutonGraph;
     private javax.swing.JButton boutonNormale;
     private javax.swing.JButton boutonPoisson;
     private javax.swing.JButton boutonUniforme;
     private javax.swing.JButton boutonWeibull;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
-    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JToolBar jToolBar1;
-    private javax.swing.JLabel labelClasse1;
-    private javax.swing.JLabel labelClasse10;
-    private javax.swing.JLabel labelClasse2;
-    private javax.swing.JLabel labelClasse3;
-    private javax.swing.JLabel labelClasse4;
-    private javax.swing.JLabel labelClasse5;
-    private javax.swing.JLabel labelClasse6;
-    private javax.swing.JLabel labelClasse7;
-    private javax.swing.JLabel labelClasse8;
-    private javax.swing.JLabel labelClasse9;
     private ChartPanel panelGraphique;
+    private javax.swing.JPanel panelRouge;
+    private javax.swing.JPanel panelVert;
     private javax.swing.JTextField textFieldEchantillon;
     // End of variables declaration
 }
