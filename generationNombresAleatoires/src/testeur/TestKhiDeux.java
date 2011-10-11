@@ -18,7 +18,7 @@ public class TestKhiDeux {
         }
 
         //Precision : colonne de la table du Khi
-        // 0 => 10%   1 => 5%   2 => 2.5%   3 => 1%
+        // 0 = 10% | 1 = 5% | 2 = 2.5% | 3 = 1%
         int precision = 1;
         
         //Calcul du degré de liberté
