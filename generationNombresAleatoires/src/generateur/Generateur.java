@@ -38,61 +38,9 @@ public abstract class Generateur {
 	/** Pas entre 2 classes */
 	protected double pas;
 	
-	/**
-	 * Getter pour la variable Nom
-	 * @return le nom
-	 */
-	public String getNom() {
-		return nom;
-	}
+	/** nombre de paramètres*/
+	protected int nbParametres;
 
-	/**
-	 * Setter pour la variable Nom
-	 * @param nom: le nouveau nom
-	 */
-	public void setNom(String nom) {
-		this.nom = nom;
-	}
-
-	/**
-	 * Getter pour la variable listeValeurs
-	 * @return la liste des valeurs
-	 */
-	public ArrayList<Double> getListeValeurs() {
-		return listeValeurs;
-	}
-
-	/**
-	 * Setter pour la variable listeValeurs
-	 * @param listeNombres: la nouvelle liste des valeurs
-	 */
-	public void setListeNombres(ArrayList<Double> listeValeurs) {
-		this.listeValeurs = listeValeurs;
-	}
-	
-	/**
-	 * Getter pour la variable nombreClasses
-	 * @return le nombre de classes
-	 */
-	public int getNombreClasses() {
-		return nombreClasses;
-	}
-
-	/**
-	 * Setter pour la variable nombreClasses
-	 * @param nombreClasses: le nouveau nombre de classes
-	 */
-	public void setNombreClasses(int nombreClasses) {
-		this.nombreClasses = nombreClasses;
-	}
-	
-	public int getNbGenerations() {
-		return nbGenerations;
-	}
-
-	public void setNbGenerations(int nbGenerations) {
-		this.nbGenerations = nbGenerations;
-	}
 
 	/**
 	 * Methode qui genère des nombres aléatoire
@@ -162,4 +110,139 @@ public abstract class Generateur {
 		valeurMinLoi = min;
 		valeurMaxLoi = max;
 	}
+	
+	
+	/**
+	 * Getter pour la variable Nom
+	 * @return le nom
+	 */
+	public String getNom() {
+		return nom;
+	}
+
+	/**
+	 * Setter pour la variable Nom
+	 * @param nom: le nouveau nom
+	 */
+	public void setNom(String nom) {
+		this.nom = nom;
+	}
+
+	/**
+	 * Getter pour la variable listeValeurs
+	 * @return la liste des valeurs
+	 */
+	public ArrayList<Double> getListeValeurs() {
+		return listeValeurs;
+	}
+
+	/**
+	 * Setter pour la variable listeValeurs
+	 * @param listeNombres: la nouvelle liste des valeurs
+	 */
+	public void setListeNombres(ArrayList<Double> listeValeurs) {
+		this.listeValeurs = listeValeurs;
+	}
+	
+	/**
+	 * Getter pour la variable nombreClasses
+	 * @return le nombre de classes
+	 */
+	public int getNombreClasses() {
+		return nombreClasses;
+	}
+
+	/**
+	 * Setter pour la variable nombreClasses
+	 * @param nombreClasses: le nouveau nombre de classes
+	 */
+	public void setNombreClasses(int nombreClasses) {
+		this.nombreClasses = nombreClasses;
+	}
+	
+	public int getNbGenerations() {
+		return nbGenerations;
+	}
+
+	public void setNbGenerations(int nbGenerations) {
+		this.nbGenerations = nbGenerations;
+	}
+
+	/**
+	 * @return the listeClasses
+	 */
+	public ArrayList<Classe> getListeClasses() {
+		return listeClasses;
+	}
+
+	/**
+	 * @param listeClasses the listeClasses to set
+	 */
+	public void setListeClasses(ArrayList<Classe> listeClasses) {
+		this.listeClasses = listeClasses;
+	}
+
+	/**
+	 * @return the valeurMinLoi
+	 */
+	public double getValeurMinLoi() {
+		return valeurMinLoi;
+	}
+
+	/**
+	 * @param valeurMinLoi the valeurMinLoi to set
+	 */
+	public void setValeurMinLoi(double valeurMinLoi) {
+		this.valeurMinLoi = valeurMinLoi;
+	}
+
+	/**
+	 * @return the valeurMaxLoi
+	 */
+	public double getValeurMaxLoi() {
+		return valeurMaxLoi;
+	}
+
+	/**
+	 * @param valeurMaxLoi the valeurMaxLoi to set
+	 */
+	public void setValeurMaxLoi(double valeurMaxLoi) {
+		this.valeurMaxLoi = valeurMaxLoi;
+	}
+
+	/**
+	 * @return the pas
+	 */
+	public double getPas() {
+		return pas;
+	}
+
+	/**
+	 * @param pas the pas to set
+	 */
+	public void setPas(double pas) {
+		this.pas = pas;
+	}
+
+	/**
+	 * @param listeValeurs the listeValeurs to set
+	 */
+	public void setListeValeurs(ArrayList<Double> listeValeurs) {
+		this.listeValeurs = listeValeurs;
+	}
+
+	/**
+	 * @return the nbParametres
+	 */
+	public int getNbParametres() {
+		return nbParametres;
+	}
+
+	/**
+	 * @param nbParametres the nbParametres to set
+	 */
+	public void setNbParametres(int nbParametres) {
+		this.nbParametres = nbParametres;
+	}
+	
 }
