@@ -5,22 +5,24 @@
  */
 package ihm;
 
-import java.io.File;
-import java.io.IOException;
+import generateur.Classe;
+import generateur.Generateur;
+import generateur.GenerateurUniforme;
+import generateur.GenerateurNormale;
+import generateur.GenerateurPoisson;
+import generateur.GenerateurWeibull;
+import generateur.GenerateurExponentielle;
+
 import java.util.ArrayList;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
-import org.jfree.chart.ChartUtilities;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
 import testeur.TestKhiDeux;
-import generateur.Classe;
-import generateur.Generateur;
-import generateur.GenerateurUniforme;
 
 /**
  *
@@ -370,8 +372,7 @@ private void boutonUniformeActionPerformed(java.awt.event.ActionEvent evt) {
 	TestKhiDeux khi2 = new TestKhiDeux();
 	khi2.test(generateur);
 	
-	genererGraphique(generateur, "Loi UNIFORME");
-	
+	genererGraphique(generateur, generateur.getNom());
 	
 }
 
@@ -380,7 +381,25 @@ private void boutonNormaleActionPerformed(java.awt.event.ActionEvent evt) {
 }
 
 private void boutonExponentielleActionPerformed(java.awt.event.ActionEvent evt) {
-// TODO add your handling code here:
+
+	// generation des valeurs aléatoires
+	GenerateurExponentielle generateur = new GenerateurExponentielle();
+	generateur.generer(Integer.parseInt(this.textFieldEchantillon.getText()));
+	
+	// rangement des valeurs aléatoire dans les classes
+	ArrayList<Classe> list = generateur.genererClasses();
+	
+	//affichage des classes
+	for (int i=0; i<10; i++){
+		tabLabel[i].setText(Integer.toString((int) list.get(i).getEffectifReel()));
+	}
+	
+	// test du Khi²
+	TestKhiDeux khi2 = new TestKhiDeux();
+	khi2.test(generateur);
+	
+	genererGraphique(generateur, generateur.getNom());
+	
 }
 
 private void boutonPoissonActionPerformed(java.awt.event.ActionEvent evt) {
@@ -398,7 +417,7 @@ private void genererGraphique(Generateur generateur, String name){
 	ArrayList<Classe> list = generateur.getListeClasses();
 	for (int i=1; i<list.size()+1; i++){
 		valeur += list.get(i-1).getEffectifReel();
-		series.add(i,(double) valeur/generateur.getNbGenerations());
+		series.add(i,(double) valeur);
 		
 	}
 	
@@ -409,8 +428,8 @@ private void genererGraphique(Generateur generateur, String name){
 	// Genere le graphique
 	JFreeChart chart = ChartFactory.createXYLineChart(
 		name, 	  		// Titre
-		"Echantillon", 	// Nom de l'axe X
-		"Classes", 		// Nom de l'axe Y
+		"Classes", 	// Nom de l'axe X
+		"Echantillon", 		// Nom de l'axe Y
 		dataset,  		// Dataset
 		PlotOrientation.VERTICAL, // Orientation
 		true, // Affichage de la legende

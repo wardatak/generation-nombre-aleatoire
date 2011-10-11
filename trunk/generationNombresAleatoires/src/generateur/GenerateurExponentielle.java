@@ -7,12 +7,12 @@ import java.util.ArrayList;
  * @author Kévin
  *
  */
-public class GenereteurExponentielle extends Generateur{
+public class GenerateurExponentielle extends Generateur{
 	
 	double nbUniforme;
 	double lambda;
 	
-	public GenereteurExponentielle(){
+	public GenerateurExponentielle(){
 		nom = "Loi Exponentielle";
 		nombreClasses = 20;
 		nbParametres = 1;
@@ -22,11 +22,12 @@ public class GenereteurExponentielle extends Generateur{
 	}
 
 	@Override
-	public ArrayList<Double> generer(int nombreGeneration) {
+	public ArrayList<Double> generer(int nombreAGenerer) {
+		nbGenerations = nombreAGenerer;
 		GenerateurUniforme uniforme = new GenerateurUniforme();
 		double valeur = 0;
-		ArrayList<Double> listUniforme = uniforme.generer(nombreGeneration);
-		for (int i=0; i<nombreGeneration; i++){
+		ArrayList<Double> listUniforme = uniforme.generer(nombreAGenerer);
+		for (int i=0; i<nombreAGenerer; i++){
 			// on récupère un nombre aléatoire généré avec la loi uniforme
 			nbUniforme = listUniforme.get(i);
 			
@@ -43,6 +44,7 @@ public class GenereteurExponentielle extends Generateur{
 	@Override
 	public double calculValeurTheorique(double valMin, double valMax) {
 		Double resultat = 1 - Math.exp(-lambda *valMax);
+		resultat *= nbGenerations;
 		return resultat;
 	}
 
