@@ -14,6 +14,7 @@ public class GenerateurUniforme extends Generateur {
 	public GenerateurUniforme(){
 		nom = "Loi Uniforme";
 		nombreClasses = 10;
+		nbParametres = 0;
 		listeValeurs = new ArrayList<Double>();
 		listeClasses = new ArrayList<Classe>();
 	}
