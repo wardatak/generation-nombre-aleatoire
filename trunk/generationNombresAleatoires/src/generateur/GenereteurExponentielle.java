@@ -10,7 +10,6 @@ import java.util.ArrayList;
 public class GenereteurExponentielle extends Generateur{
 	
 	double nbUniforme;
-	
 	double lambda = 1;
 
 	@Override

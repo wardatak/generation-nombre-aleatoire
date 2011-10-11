@@ -5,15 +5,36 @@
  */
 package ihm;
 
+import java.util.ArrayList;
+
+import testeur.TestKhiDeux;
+import generateur.Classe;
+import generateur.GenerateurUniforme;
+
 /**
  *
  * @author Kévin
  */
 public class IHM extends javax.swing.JFrame {
+	
+	javax.swing.JLabel[]  tabLabel = new javax.swing.JLabel[10];
 
     /** Creates new form IHM */
     public IHM() {
         initComponents();
+        
+        // creation d'un tableau pour les labels des classes
+        tabLabel[0] = labelClasse1;
+        tabLabel[1] = labelClasse2;
+        tabLabel[2] = labelClasse3;
+        tabLabel[3] = labelClasse4;
+        tabLabel[4] = labelClasse5;
+        tabLabel[5] = labelClasse6;
+        tabLabel[6] = labelClasse7;
+        tabLabel[7] = labelClasse8;
+        tabLabel[8] = labelClasse9;
+        tabLabel[9] = labelClasse10;
+        		
     }
 
     /** This method is called from within the constructor to
@@ -317,7 +338,26 @@ public class IHM extends javax.swing.JFrame {
     }// </editor-fold>
 
 private void boutonUniformeActionPerformed(java.awt.event.ActionEvent evt) {
-// TODO add your handling code here:
+
+	// generation des valeurs aléatoires
+	GenerateurUniforme generateur = new GenerateurUniforme();
+	generateur.generer(Integer.parseInt(this.textFieldEchantillon.getText()));
+	
+	// rangement des valeurs aléatoire dans les classes
+	ArrayList<Classe> list = generateur.genererClasses();
+	
+	//affichage des classes
+	for (int i=0; i<10; i++){
+		tabLabel[i].setText(Integer.toString((int) list.get(i).getEffectifReel()));
+	}
+	
+	System.out.println("TEST");
+	
+	// test du Khi²
+	TestKhiDeux khi2 = new TestKhiDeux();
+	khi2.test(generateur);
+	
+	
 }
 
 private void boutonNormaleActionPerformed(java.awt.event.ActionEvent evt) {
