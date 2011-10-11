@@ -5,6 +5,10 @@
  */
 package ihm;
 
+import generateur.Classe;
+import generateur.Generateur;
+import generateur.GenerateurUniforme;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -17,9 +21,6 @@ import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
 import testeur.TestKhiDeux;
-import generateur.Classe;
-import generateur.Generateur;
-import generateur.GenerateurUniforme;
 
 /**
  *

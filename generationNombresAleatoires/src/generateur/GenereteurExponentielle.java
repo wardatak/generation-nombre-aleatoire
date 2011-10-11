@@ -10,7 +10,16 @@ import java.util.ArrayList;
 public class GenereteurExponentielle extends Generateur{
 	
 	double nbUniforme;
-	double lambda = 1;
+	double lambda;
+	
+	public GenereteurExponentielle(){
+		nom = "Loi Exponentielle";
+		nombreClasses = 20;
+		nbParametres = 1;
+		listeValeurs = new ArrayList<Double>();
+		listeClasses = new ArrayList<Classe>();
+		lambda = 1;
+	}
 
 	@Override
 	public ArrayList<Double> generer(int nombreGeneration) {
@@ -33,8 +42,8 @@ public class GenereteurExponentielle extends Generateur{
 
 	@Override
 	public double calculValeurTheorique(double valMin, double valMax) {
-		// TODO Auto-generated method stub
-		return 0;
+		Double resultat = 1 - Math.exp(-lambda *valMax);
+		return resultat;
 	}
 
 }
