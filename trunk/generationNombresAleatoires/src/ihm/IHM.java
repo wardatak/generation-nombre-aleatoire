@@ -12,6 +12,7 @@ import generateur.Classe;
 import generateur.Generateur;
 import generateur.GenerateurExponentielle;
 import generateur.GenerateurUniforme;
+import generateur.GenerateurWeibull;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -296,7 +297,6 @@ public class IHM extends javax.swing.JFrame {
     	}
     	
     	genererGraphique(generateur, generateur.getNom());
-    	
     }
 
     private void boutonPoissonActionPerformed(java.awt.event.ActionEvent evt) {
@@ -304,7 +304,27 @@ public class IHM extends javax.swing.JFrame {
     }
 
     private void boutonWeibullActionPerformed(java.awt.event.ActionEvent evt) {
-    // TODO add your handling code here:
+
+    	// generation des valeurs aléatoires
+    	GenerateurWeibull generateur = new GenerateurWeibull();
+    	generateur.generer(getTextField());
+    	
+    	// rangement des valeurs aléatoire dans les classes
+    	ArrayList<Classe> list = generateur.genererClasses();
+    	
+    	// test du Khi²
+    	TestKhiDeux khi2 = new TestKhiDeux();
+    	boolean test = khi2.test(generateur);
+    	if (test == true){
+    		this.panelVert.setBackground(vert);
+    		this.panelRouge.setBackground(rougeF);
+    	}
+    	else{
+    		this.panelRouge.setBackground(rouge);
+    		this.panelVert.setBackground(vertF);
+    	}
+    	
+    	genererGraphique(generateur, generateur.getNom());
     }
     
     private void boutonGraphActionPerformed(java.awt.event.ActionEvent evt) {
