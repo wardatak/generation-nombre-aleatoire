@@ -351,8 +351,6 @@ private void boutonUniformeActionPerformed(java.awt.event.ActionEvent evt) {
 		tabLabel[i].setText(Integer.toString((int) list.get(i).getEffectifReel()));
 	}
 	
-	System.out.println("TEST");
-	
 	// test du Khi²
 	TestKhiDeux khi2 = new TestKhiDeux();
 	khi2.test(generateur);
