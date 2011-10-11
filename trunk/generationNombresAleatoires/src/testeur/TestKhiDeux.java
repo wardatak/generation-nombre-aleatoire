@@ -25,13 +25,16 @@ public class TestKhiDeux {
         int degres = (gen.getNombreClasses() - 1 - gen.getNbParametres());
         
         //Verification dans la table du khi²
+        System.out.println("            --------------            ");
         if (q > TableduKhi[degres][precision]) {
             System.out.println("Le test du Khi² ne valide pas la génération de la "+gen.getNom());
+            System.out.println("Details : Q réel == "+q+" | Q théorique (table khi²) == "+TableduKhi[degres][precision]+" | Degrés de liberté == "+degres);
+            return false;
         } else {
             System.out.println("Le test du Khi² valide la génération de la "+gen.getNom());
+            System.out.println("Details : Q réel == "+q+" | Q théorique (table khi²) == "+TableduKhi[degres][precision]+" | Degrés de liberté == "+degres);
+            return true;
         }
-        System.out.println("Q réel == "+q+" | Q théorique (table khi²) == "+TableduKhi[degres][precision]+" | Degré de liberté == "+degres);
-		return false;
 	}
 	
 	/**
@@ -63,5 +66,4 @@ public class TestKhiDeux {
          {30.81, 33.92, 36.80, 40.29},
          {32.01, 35.17, 38.10, 41.64}
 	 };
-	 
 }
