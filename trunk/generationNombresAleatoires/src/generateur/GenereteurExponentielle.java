@@ -16,10 +16,10 @@ public class GenereteurExponentielle extends Generateur{
 	public ArrayList<Double> generer(int nombreGeneration) {
 		GenerateurUniforme uniforme = new GenerateurUniforme();
 		double valeur = 0;
-		
+		ArrayList<Double> listUniforme = uniforme.generer(nombreGeneration);
 		for (int i=0; i<nombreGeneration; i++){
 			// on récupère un nombre aléatoire généré avec la loi uniforme
-			nbUniforme = uniforme.generer(1).get(0);
+			nbUniforme = listUniforme.get(i);
 			
 			// on injecte ce nombre dans la formule de la loi exponentielle
 			valeur = -1/lambda * Math.log(nbUniforme);
