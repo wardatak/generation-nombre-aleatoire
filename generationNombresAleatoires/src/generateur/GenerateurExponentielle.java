@@ -37,7 +37,6 @@ public class GenerateurExponentielle extends Generateur{
 			// on ajoute la valeur à l'ArrayList
 			listeValeurs.add(valeur);
 		}
-		
 		return listeValeurs;
 	}
 
