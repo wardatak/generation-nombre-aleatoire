@@ -328,24 +328,11 @@ public class IHM extends javax.swing.JFrame {
     }
     
     private void boutonGraphActionPerformed(java.awt.event.ActionEvent evt) {
-    		
-    	JFreeChart chart2 = ChartFactory.createXYLineChart(
-		    "GRAPHIQUE", 	  	// Titre
-		    "Classes", 			// Nom de l'axe X
-    		"Echantillon", 		// Nom de l'axe Y
-    		dataset,  			// Dataset
-    		PlotOrientation.VERTICAL, // Orientation
-    		true, // Affichage de la legende
-    		true, // Utilisation du tooltip
-    		false // pas de generation d'URL
-    		    	);
-    	this.chart.fireChartChanged();
-    	this.panelGraphique = new ChartPanel(chart);
-    	this.panelGraphique.repaint();
+		cleanGraphique();
     }
 
     private void genererGraphique(Generateur generateur, String name){
-    	XYSeries series = new XYSeries("XY Chart");
+    	XYSeries series = new XYSeries(name);
     	series.add(0, 0);
     	double valeur = 0;
     	ArrayList<Classe> list = generateur.getListeClasses();
@@ -354,11 +341,8 @@ public class IHM extends javax.swing.JFrame {
     		series.add(i,(double) valeur);
     		
     	}
-    	
     	// Ajoute la série au dataset
     	dataset.addSeries(series);
-    	
-    	
     	// Genere le graphique
     	chart = ChartFactory.createXYLineChart(
     		name, 	  		// Titre
@@ -370,9 +354,22 @@ public class IHM extends javax.swing.JFrame {
     		true, // Utilisation du tooltip
     		false // pas de generation d'URL
     	);
-    	
     	this.panelGraphique = new ChartPanel(chart);
-    	
+    }
+    private void cleanGraphique(){
+    	dataset.removeAllSeries();
+    	// Genere le graphique
+    	chart = ChartFactory.createXYLineChart(
+    		"name", 	  		// Titre
+    		"Classes", 	// Nom de l'axe X
+    		"Echantillon", 		// Nom de l'axe Y
+    		dataset,  		// Dataset
+    		PlotOrientation.VERTICAL, // Orientation
+    		true, // Affichage de la legende
+    		true, // Utilisation du tooltip
+    		false // pas de generation d'URL
+    	);
+    	this.panelGraphique = new ChartPanel(chart);
     }
 
     
