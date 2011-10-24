@@ -17,7 +17,7 @@ public class GenerateurExponentielleTP2 extends GenerateurExponentielle {
 		listeClasses = new ArrayList<Classe>();
 		lambda = 1;
 		isCumule = true;
-		alpha = 10;
+		pas = 1;
 	}
 	
 	public GenerateurExponentielleTP2(double lambda){
@@ -27,7 +27,7 @@ public class GenerateurExponentielleTP2 extends GenerateurExponentielle {
 		listeClasses = new ArrayList<Classe>();
 		this.lambda = lambda;
 		isCumule = true;
-		alpha = 2;
+		pas = 1;
 	}
 	
 	
@@ -37,7 +37,8 @@ public class GenerateurExponentielleTP2 extends GenerateurExponentielle {
 		double valMin;
 		double valMax;
 		rechercherMinMaxLoi(listeValeurs);
-		pas = alpha / lambda;
+		ArrayList<Classe> listeTemp = new ArrayList<Classe>();
+		alpha  =  pas * lambda;
 		//valeurMinLoi = 0;
 		//valeurMaxLoi = 20;
 		for (int i=0; i<getNombreClasses(); i++){
@@ -46,8 +47,22 @@ public class GenerateurExponentielleTP2 extends GenerateurExponentielle {
 			valMin = valeurMinLoi + i*pas;
 			valMax = valeurMinLoi + (i+1)*pas;
 			cl = new Classe(valMin, valMax, calculValeurReelle(valMin, valMax), calculValeurTheorique(valMin, valMax));
-			listeClasses.add(cl);
+			
+			
+			listeTemp.add(cl);
 		}
+		for(int i=0; i < 15; i++){
+			nombreClasses =14;
+	    		int effectif = 0;
+	    		for(Classe c : listeTemp){
+	    			if(c.getEffectifReel()== i){
+	    				effectif ++;
+	    			}
+	    		}
+	    		cl = new Classe(i, i+1, effectif, calculValeurTheorique(i, i+1));
+	    		listeClasses.add(cl);
+    	}
+			
 		return listeClasses;
 	}
 	
@@ -81,14 +96,14 @@ public class GenerateurExponentielleTP2 extends GenerateurExponentielle {
 	
 	@Override
 	public double calculValeurTheoriqueCumulee(double valMax) {
-		PoissonDistribution p = new PoissonDistribution(lambda);
-		return p.cumulative(valMax)*nombreClasses;
+		PoissonDistribution p = new PoissonDistribution(alpha);
+		return p.cumulative(valMax)*15;
 	}
 
 	@Override
 	public double calculValeurTheorique(double valMin, double valMax) {
-		PoissonDistribution p = new PoissonDistribution(lambda);
-		return p.probability(valMin)*nombreClasses;
+		PoissonDistribution p = new PoissonDistribution(alpha);
+		return p.probability(valMin)*15;
 	}
 
 	@Override

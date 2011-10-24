@@ -432,14 +432,10 @@ public class IHM extends javax.swing.JFrame {
     	
     	ArrayList<Classe> list = generateur.getListeClasses();
     	
-    	for(int i =1; i <15; i++){
-    		int effectif = 0;
-    		for(Classe c : list){
-    			if(c.getEffectifReel()== i){
-    				effectif ++;
-    			}
-    		}
-    		series.add(i, effectif);
+    	for (int i=1; i<list.size()+1; i++){
+    		valeur = list.get(i-1).getEffectifReel();
+    		series.add(i,(double) valeur);
+    		
     	}
     	
     	// Ajoute la série au dataset
