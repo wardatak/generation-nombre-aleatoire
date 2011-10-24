@@ -137,7 +137,7 @@ public class IHM extends javax.swing.JFrame {
                 boutonWeibullActionPerformed(evt);
             }
         });
-        boutonTP2.setText("LOL");
+        boutonTP2.setText("TP2");
         boutonTP2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 boutonTP2ActionPerformed(evt);
@@ -426,8 +426,10 @@ public class IHM extends javax.swing.JFrame {
     }
     
     private void genererGraphiqueTP2(Generateur generateur, String name){
-    	XYSeries series = new XYSeries(name);
+    	XYSeries series = new XYSeries("Effectif réel");
+    	XYSeries seriesth = new XYSeries("Effectif theorique");
     	series.add(0, 0);
+    	seriesth.add(0, 0);
     	double valeur = 0;
     	
     	ArrayList<Classe> list = generateur.getListeClasses();
@@ -435,11 +437,15 @@ public class IHM extends javax.swing.JFrame {
     	for (int i=1; i<list.size()+1; i++){
     		valeur = list.get(i-1).getEffectifReel();
     		series.add(i,(double) valeur);
-    		
     	}
     	
+    	for (int i=1; i<list.size()+1; i++){
+    		valeur = list.get(i-1).getEffectifTheorique();
+    		seriesth.add(i,(double) valeur);
+    	}
     	// Ajoute la série au dataset
     	dataset.addSeries(series);
+    	dataset.addSeries(seriesth);
     	// Genere le graphique
     	chart = ChartFactory.createXYLineChart(
     		name, 	  		// Titre
@@ -478,7 +484,7 @@ public class IHM extends javax.swing.JFrame {
     	if (valeur > 1000000)
     		valeur = 1000000;
     	this.textFieldEchantillon.setText(String.valueOf(valeur));
-    	System.out.println("VALEUR >>>>>>>>>"+(int)valeur);
+    	System.out.println("Nombre de générations -> "+(int)valeur);
     	return (int)valeur;
     }
     
