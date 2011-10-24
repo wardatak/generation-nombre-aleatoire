@@ -137,6 +137,8 @@ public class IHM extends javax.swing.JFrame {
         });
         
         jLabelLambda.setText("Lambda :");
+        
+        textFieldLambda.setText("1");
 
         jToolBar1.setRollover(true);
 
@@ -290,7 +292,7 @@ public class IHM extends javax.swing.JFrame {
     private void boutonExponentielleActionPerformed(java.awt.event.ActionEvent evt) {
 
     	// generation des valeurs aléatoires
-    	GenerateurExponentielle generateur = new GenerateurExponentielle();
+    	GenerateurExponentielle generateur = new GenerateurExponentielle(Integer.parseInt(this.textFieldLambda.getText()));
     	generateur.generer(getTextField());
     	
     	// rangement des valeurs aléatoire dans les classes
@@ -313,7 +315,7 @@ public class IHM extends javax.swing.JFrame {
 
     private void boutonPoissonActionPerformed(java.awt.event.ActionEvent evt) {
     	// generation des valeurs aléatoires
-    	GenerateurPoisson generateur = new GenerateurPoisson();
+    	GenerateurPoisson generateur = new GenerateurPoisson(Integer.parseInt(this.textFieldLambda.getText()));
     	generateur.generer(getTextField());
     	
     	// rangement des valeurs aléatoire dans les classes
@@ -337,7 +339,7 @@ public class IHM extends javax.swing.JFrame {
     private void boutonWeibullActionPerformed(java.awt.event.ActionEvent evt) {
 
     	// generation des valeurs aléatoires
-    	GenerateurWeibull generateur = new GenerateurWeibull();
+    	GenerateurWeibull generateur = new GenerateurWeibull(Integer.parseInt(this.textFieldLambda.getText()));
     	generateur.generer(getTextField());
     	
     	// rangement des valeurs aléatoire dans les classes

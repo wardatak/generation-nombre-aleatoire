@@ -29,6 +29,10 @@ public class GenerateurPoisson extends Generateur{
 		listeValeurs = new ArrayList<Double>();
 		listeClasses = new ArrayList<Classe>();
 		this.lambda = lambda;
+		if (lambda < 1)
+			lambda = 1;
+		if (lambda > 20)
+			lambda = 20;
 		isCumule = false;
 	}
 	
