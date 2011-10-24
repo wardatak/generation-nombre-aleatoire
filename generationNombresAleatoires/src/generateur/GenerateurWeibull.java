@@ -46,16 +46,15 @@ public class GenerateurWeibull extends Generateur{
 
 	@Override
 	public double calculValeurTheorique(double valMin, double valMax) {
-		Double truc = -Math.pow(valMax*lambda, k);
-		Double resultat = 1 - Math.exp(truc);
-		resultat *= nbGenerations;
-		return resultat;
+		return 0;
 	}
 
 	@Override
 	public double calculValeurTheoriqueCumulee(double valMax) {
-		// TODO Auto-generated method stub
-		return 0;
+		Double truc = -Math.pow(valMax*lambda, k);
+		Double resultat = 1 - Math.exp(truc);
+		resultat *= nbGenerations;
+		return resultat;
 	}
 
 }
