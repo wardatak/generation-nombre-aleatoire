@@ -432,7 +432,7 @@ public class IHM extends javax.swing.JFrame {
     	
     	ArrayList<Classe> list = generateur.getListeClasses();
     	
-    	for(int i =0; i <15; i++){
+    	for(int i =1; i <15; i++){
     		int effectif = 0;
     		for(Classe c : list){
     			if(c.getEffectifReel()== i){
