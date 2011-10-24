@@ -24,6 +24,17 @@ public class GenerateurWeibull extends Generateur{
 		isCumule = true;
 	}
 	
+	public GenerateurWeibull(double lambda){
+		nom = "Loi Weibull";
+		nombreClasses = 20;
+		nbParametres = 2;
+		listeValeurs = new ArrayList<Double>();
+		listeClasses = new ArrayList<Classe>();
+		this.lambda = lambda;
+		k =1;
+		isCumule = true;
+	}
+	
 	@Override
 	public ArrayList<Double> generer(int nombreAGenerer) {
 		nbGenerations = nombreAGenerer;
