@@ -18,7 +18,7 @@ public class GenerateurPoisson extends Generateur{
 		nbParametres = 1;
 		listeValeurs = new ArrayList<Double>();
 		listeClasses = new ArrayList<Classe>();
-		lambda = 8;
+		lambda = 1;
 		isCumule = false;
 	}
 	

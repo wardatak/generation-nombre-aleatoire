@@ -43,7 +43,6 @@ public class GenerateurExponentielle extends Generateur{
 
 	@Override
 	public double calculValeurTheorique(double valMin, double valMax) {
-		
 		return 0;
 	}
 
