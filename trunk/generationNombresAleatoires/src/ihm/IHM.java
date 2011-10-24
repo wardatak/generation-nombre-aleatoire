@@ -431,27 +431,17 @@ public class IHM extends javax.swing.JFrame {
     	double valeur = 0;
     	
     	ArrayList<Classe> list = generateur.getListeClasses();
-    	ArrayList<Integer> listDesEffectifs = new ArrayList<Integer>();
-    	listDesEffectifs.add(0);
-    	for(Classe c : list){
-    		boolean exist=true;
-    		for(Integer i : listDesEffectifs){
-    			if(c.getEffectifReel() != i){
-    				exist = false;
+    	
+    	for(int i =0; i <15; i++){
+    		int effectif = 0;
+    		for(Classe c : list){
+    			if(c.getEffectifReel()== i){
+    				effectif ++;
     			}
     		}
-    		if(!exist)
-    			listDesEffectifs.add((int) c.getEffectifReel());
+    		series.add(i, effectif);
     	}
     	
-    	for (int i=0; i<listDesEffectifs.size(); i++){
-    		int effectif = 0;
-    		for(int j = 0; j < list.size(); j++){
-    			if(list.get(j).getEffectifReel() == listDesEffectifs.get(i));
-    				effectif ++;
-    		}
-    		series.add((double)listDesEffectifs.get(i), effectif);
-    	}
     	// Ajoute la série au dataset
     	dataset.addSeries(series);
     	// Genere le graphique
