@@ -19,6 +19,7 @@ public class GenerateurExponentielle extends Generateur{
 		listeValeurs = new ArrayList<Double>();
 		listeClasses = new ArrayList<Classe>();
 		lambda = 1;
+		isCumule = true;
 	}
 
 	@Override
@@ -42,6 +43,12 @@ public class GenerateurExponentielle extends Generateur{
 
 	@Override
 	public double calculValeurTheorique(double valMin, double valMax) {
+		
+		return 0;
+	}
+
+	@Override
+	public double calculValeurTheoriqueCumulee(double valMax) {
 		Double resultat = 1 - Math.exp(-lambda *valMax);
 		resultat *= nbGenerations;
 		return resultat;

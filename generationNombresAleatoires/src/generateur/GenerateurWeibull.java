@@ -21,6 +21,7 @@ public class GenerateurWeibull extends Generateur{
 		listeClasses = new ArrayList<Classe>();
 		lambda = 1;
 		k =1;
+		isCumule = true;
 	}
 	
 	@Override
@@ -49,6 +50,12 @@ public class GenerateurWeibull extends Generateur{
 		Double resultat = 1 - Math.exp(truc);
 		resultat *= nbGenerations;
 		return resultat;
+	}
+
+	@Override
+	public double calculValeurTheoriqueCumulee(double valMax) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }

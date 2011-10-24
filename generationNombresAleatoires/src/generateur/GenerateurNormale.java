@@ -21,5 +21,11 @@ public class GenerateurNormale extends Generateur{
 		return 0;
 	}
 
+	@Override
+	public double calculValeurTheoriqueCumulee(double valMax) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 	
 }

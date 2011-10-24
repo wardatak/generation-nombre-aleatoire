@@ -40,6 +40,8 @@ public abstract class Generateur {
 	
 	/** nombre de paramètres*/
 	protected int nbParametres;
+	
+	protected boolean isCumule;
 
 
 	/**
@@ -50,16 +52,22 @@ public abstract class Generateur {
 	public abstract ArrayList<Double> generer(int nombreGeneration);
 	
 	/**
+	 * Methode qui calcule la valeur théorique cumulée utilisé pour le test du Khi²
+	 * @return la valeur théorique
+	 */
+	public abstract double calculValeurTheoriqueCumulee(double valMax);
+	
+	/**
 	 * Methode qui calcule la valeur théorique utilisé pour le test du Khi²
 	 * @return la valeur théorique
 	 */
 	public abstract double calculValeurTheorique(double valMin, double valMax);
 	
 	/**
-	 * Methode qui calcule la valeur réelle utilisé pour le test du Khi²
+	 * Methode qui calcule la valeur réelle cumuléee utilisé pour le test du Khi²
 	 * @return la valeur réelle
 	 */
-	public double calculValeurReelle(double valMin, double valMax){
+	public double calculValeurReelleCumulee(double valMax){
 		double resultat = 0;
 		for(int i = 0; i < listeValeurs.size(); i++){
 			if(listeValeurs.get(i) < valMax){
@@ -70,6 +78,19 @@ public abstract class Generateur {
 	}
 	
 	/**
+	 * Methode qui calcule la valeur réelle utilisé pour le test du Khi²
+	 * @return la valeur réelle
+	 */
+	public double calculValeurReelle(double valMin, double valMax){
+		double resultat = 0;
+		for(int i = 0; i < listeValeurs.size(); i++){
+			if(listeValeurs.get(i) < valMax && listeValeurs.get(i) >= valMin){
+				resultat++;
+			}
+		}
+		return resultat;
+	}
+	/**
 	 * Renvoie une liste de classes initialisées
 	 * @return
 	 */
@@ -78,13 +99,17 @@ public abstract class Generateur {
 		double valMin;
 		double valMax;
 		rechercherMinMaxLoi(listeValeurs);
+		//valeurMinLoi = 0;
+		//valeurMaxLoi = 20;
 		for (int i=0; i<getNombreClasses(); i++){
 			pas = (valeurMaxLoi - valeurMinLoi) / getNombreClasses();
 			valMin = valeurMinLoi + i*pas;
 			valMax = valeurMinLoi + (i+1)*pas;
-			
-			cl = new Classe(valMin, valMax, calculValeurReelle(valMin, valMax), calculValeurTheorique(valMin, valMax));
-			
+			if(this.isCumule){
+				cl = new Classe(valMin, valMax, calculValeurReelleCumulee(valMax), calculValeurTheoriqueCumulee(valMax));
+			}else{
+				cl = new Classe(valMin, valMax, calculValeurReelle(valMin, valMax), calculValeurTheorique(valMin, valMax));
+			}
 			listeClasses.add(cl);
 		}
 		return listeClasses;

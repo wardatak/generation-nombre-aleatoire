@@ -102,7 +102,7 @@ public class IHM extends javax.swing.JFrame {
             }
         });
         
-        textFieldEchantillon.setText("100");
+        textFieldEchantillon.setText("300000");
 
         jLabel1.setText("Taille de l'échantillon à générer:");
 
