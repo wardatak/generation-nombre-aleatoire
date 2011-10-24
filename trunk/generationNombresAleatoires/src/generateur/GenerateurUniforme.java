@@ -19,6 +19,7 @@ public class GenerateurUniforme extends Generateur {
 		listeValeurs = new ArrayList<Double>();
 		listeClasses = new ArrayList<Classe>();
 		cumul = 0;
+		isCumule = true;
 	}
 
 	/**
@@ -42,6 +43,14 @@ public class GenerateurUniforme extends Generateur {
 
 	@Override
 	public double calculValeurTheorique(double valMin, double valMax) {
+		cumul = 0;
+		cumul += (double)1 / getNombreClasses();
+		return cumul;
+	}
+
+	@Override
+	public double calculValeurTheoriqueCumulee(double valMax) {
+		cumul = 0;
 		cumul += (double)1 / getNombreClasses() * nbGenerations ;
 		return cumul;
 	}
