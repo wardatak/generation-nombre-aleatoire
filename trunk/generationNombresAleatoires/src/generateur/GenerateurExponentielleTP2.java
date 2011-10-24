@@ -22,12 +22,12 @@ public class GenerateurExponentielleTP2 extends GenerateurExponentielle {
 	
 	public GenerateurExponentielleTP2(double lambda){
 		nom = "Loi Exponentielle TP2";
-		nbParametres = 1;
+		nbParametres = 2;
 		listeValeurs = new ArrayList<Double>();
 		listeClasses = new ArrayList<Classe>();
 		this.lambda = lambda;
 		isCumule = true;
-		alpha = 1;
+		alpha = 2;
 	}
 	
 	
@@ -88,7 +88,7 @@ public class GenerateurExponentielleTP2 extends GenerateurExponentielle {
 	@Override
 	public double calculValeurTheorique(double valMin, double valMax) {
 		PoissonDistribution p = new PoissonDistribution(lambda);
-		return p.probability(valMin)*nbGenerations;
+		return p.probability(valMin)*nombreClasses;
 	}
 
 	@Override
