@@ -34,6 +34,28 @@ public class GenerateurPoisson extends Generateur{
 	
 	
 	@Override
+	public ArrayList<Classe> genererClasses(){
+		Classe cl;
+		double valMin;
+		double valMax;
+		//rechercherMinMaxLoi(listeValeurs);
+		valeurMinLoi = 0;
+		valeurMaxLoi = 20;
+		for (int i=0; i<getNombreClasses(); i++){
+			pas = (valeurMaxLoi - valeurMinLoi) / getNombreClasses();
+			valMin = valeurMinLoi + i*pas;
+			valMax = valeurMinLoi + (i+1)*pas;
+			if(this.isCumule){
+				cl = new Classe(valMin, valMax, calculValeurReelleCumulee(valMax), calculValeurTheoriqueCumulee(valMax));
+			}else{
+				cl = new Classe(valMin, valMax, calculValeurReelle(valMin, valMax), calculValeurTheorique(valMin, valMax));
+			}
+			listeClasses.add(cl);
+		}
+		return listeClasses;
+	}
+	
+	@Override
 	public ArrayList<Double> generer(int nombreAGenerer) {
 		nbGenerations = nombreAGenerer;
 		double s = 0;
