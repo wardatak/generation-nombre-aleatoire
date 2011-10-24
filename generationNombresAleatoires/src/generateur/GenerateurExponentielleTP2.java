@@ -52,7 +52,7 @@ public class GenerateurExponentielleTP2 extends GenerateurExponentielle {
 			listeTemp.add(cl);
 		}
 		for(int i=0; i < 15; i++){
-			nombreClasses =14;
+			nombreClasses =15;
 	    		int effectif = 0;
 	    		for(Classe c : listeTemp){
 	    			if(c.getEffectifReel()== i){
@@ -97,13 +97,13 @@ public class GenerateurExponentielleTP2 extends GenerateurExponentielle {
 	@Override
 	public double calculValeurTheoriqueCumulee(double valMax) {
 		PoissonDistribution p = new PoissonDistribution(alpha);
-		return p.cumulative(valMax)*15;
+		return p.cumulative(valMax)*nbGenerations/lambda;
 	}
 
 	@Override
 	public double calculValeurTheorique(double valMin, double valMax) {
 		PoissonDistribution p = new PoissonDistribution(alpha);
-		return p.probability(valMin)*15;
+		return p.probability(valMin)*nbGenerations/lambda;
 	}
 
 	@Override
