@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import generateur.Classe;
 import generateur.Generateur;
 import generateur.GenerateurExponentielle;
+import generateur.GenerateurExponentielleTP2;
 import generateur.GenerateurUniforme;
 import generateur.GenerateurWeibull;
 import generateur.GenerateurPoisson;
@@ -72,6 +73,7 @@ public class IHM extends javax.swing.JFrame {
         boutonExponentielle = new javax.swing.JButton();
         boutonPoisson = new javax.swing.JButton();
         boutonWeibull = new javax.swing.JButton();
+        boutonTP2 = new javax.swing.JButton();
         jToolBar1 = new javax.swing.JToolBar();
         panelRouge = new javax.swing.JPanel();
         panelVert = new javax.swing.JPanel();
@@ -104,7 +106,7 @@ public class IHM extends javax.swing.JFrame {
             }
         });
         
-        textFieldEchantillon.setText("300000");
+        textFieldEchantillon.setText("1000");
 
         jLabel1.setText("Taille de l'échantillon à générer:");
 
@@ -133,6 +135,12 @@ public class IHM extends javax.swing.JFrame {
         boutonWeibull.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 boutonWeibullActionPerformed(evt);
+            }
+        });
+        boutonTP2.setText("LOL");
+        boutonTP2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                boutonTP2ActionPerformed(evt);
             }
         });
         
@@ -198,7 +206,9 @@ public class IHM extends javax.swing.JFrame {
                             .addComponent(boutonNormale, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(boutonWeibull, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(boutonPoisson, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(boutonTP2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(boutonExponentielle, javax.swing.GroupLayout.Alignment.LEADING))
+                            
                         .addGap(18, 18, 18)
                         .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -238,7 +248,9 @@ public class IHM extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(boutonPoisson)
                                 .addGap(18, 18, 18)
-                                .addComponent(boutonWeibull))
+                                .addComponent(boutonWeibull)
+                                .addGap(18, 18, 18)
+                                .addComponent(boutonTP2))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(90, 90, 90)
                                 .addComponent(jLabel2)
@@ -313,6 +325,29 @@ public class IHM extends javax.swing.JFrame {
     	genererGraphique(generateur, generateur.getNom());
     }
 
+    private void boutonTP2ActionPerformed(java.awt.event.ActionEvent evt) {
+    	// generation des valeurs aléatoires
+    	GenerateurExponentielleTP2 generateur = new GenerateurExponentielleTP2(Integer.parseInt(this.textFieldLambda.getText()));
+    	generateur.generer(getTextField());
+    	
+    	// rangement des valeurs aléatoire dans les classes
+    	ArrayList<Classe> list = generateur.genererClasses();
+    	
+    	// test du Khi²
+    	TestKhiDeux khi2 = new TestKhiDeux();
+    	boolean test = khi2.test(generateur);
+    	if (test == true){
+    		this.panelVert.setBackground(vert);
+    		this.panelRouge.setBackground(rougeF);
+    	}
+    	else{
+    		this.panelRouge.setBackground(rouge);
+    		this.panelVert.setBackground(vertF);
+    	}
+    	
+    	genererGraphiqueTP2(generateur, generateur.getNom());
+    }
+    
     private void boutonPoissonActionPerformed(java.awt.event.ActionEvent evt) {
     	// generation des valeurs aléatoires
     	GenerateurPoisson generateur = new GenerateurPoisson(Integer.parseInt(this.textFieldLambda.getText()));
@@ -389,6 +424,50 @@ public class IHM extends javax.swing.JFrame {
     	);
     	this.panelGraphique = new ChartPanel(chart);
     }
+    
+    private void genererGraphiqueTP2(Generateur generateur, String name){
+    	XYSeries series = new XYSeries(name);
+    	series.add(0, 0);
+    	double valeur = 0;
+    	
+    	ArrayList<Classe> list = generateur.getListeClasses();
+    	ArrayList<Integer> listDesEffectifs = new ArrayList<Integer>();
+    	listDesEffectifs.add(0);
+    	for(Classe c : list){
+    		boolean exist=true;
+    		for(Integer i : listDesEffectifs){
+    			if(c.getEffectifReel() != i){
+    				exist = false;
+    			}
+    		}
+    		if(!exist)
+    			listDesEffectifs.add((int) c.getEffectifReel());
+    	}
+    	
+    	for (int i=0; i<listDesEffectifs.size(); i++){
+    		int effectif = 0;
+    		for(int j = 0; j < list.size(); j++){
+    			if(list.get(j).getEffectifReel() == listDesEffectifs.get(i));
+    				effectif ++;
+    		}
+    		series.add((double)listDesEffectifs.get(i), effectif);
+    	}
+    	// Ajoute la série au dataset
+    	dataset.addSeries(series);
+    	// Genere le graphique
+    	chart = ChartFactory.createXYLineChart(
+    		name, 	  		// Titre
+    		"Nb d'evenements par intervalles", 	// Nom de l'axe X
+    		"Nb", 		// Nom de l'axe Y
+    		dataset,  		// Dataset
+    		PlotOrientation.VERTICAL, // Orientation
+    		true, // Affichage de la legende
+    		true, // Utilisation du tooltip
+    		false // pas de generation d'URL
+    	);
+    	this.panelGraphique = new ChartPanel(chart);
+    }
+    
     private void cleanGraphique(){
     	dataset.removeAllSeries();
     	// Genere le graphique
@@ -460,6 +539,7 @@ public class IHM extends javax.swing.JFrame {
     private javax.swing.JButton boutonPoisson;
     private javax.swing.JButton boutonUniforme;
     private javax.swing.JButton boutonWeibull;
+    private javax.swing.JButton boutonTP2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabelLambda;
