@@ -21,6 +21,16 @@ public class GenerateurExponentielle extends Generateur{
 		lambda = 1;
 		isCumule = true;
 	}
+	
+	public GenerateurExponentielle(double lambda){
+		nom = "Loi Exponentielle";
+		nombreClasses = 20;
+		nbParametres = 1;
+		listeValeurs = new ArrayList<Double>();
+		listeClasses = new ArrayList<Classe>();
+		this.lambda = lambda;
+		isCumule = true;
+	}
 
 	@Override
 	public ArrayList<Double> generer(int nombreAGenerer) {

@@ -90,6 +90,7 @@ public abstract class Generateur {
 		}
 		return resultat;
 	}
+	 
 	/**
 	 * Renvoie une liste de classes initialisées
 	 * @return
@@ -98,9 +99,9 @@ public abstract class Generateur {
 		Classe cl;
 		double valMin;
 		double valMax;
-		//rechercherMinMaxLoi(listeValeurs);
-		valeurMinLoi = 0;
-		valeurMaxLoi = 20;
+		rechercherMinMaxLoi(listeValeurs);
+		//valeurMinLoi = 0;
+		//valeurMaxLoi = 20;
 		for (int i=0; i<getNombreClasses(); i++){
 			pas = (valeurMaxLoi - valeurMinLoi) / getNombreClasses();
 			valMin = valeurMinLoi + i*pas;
