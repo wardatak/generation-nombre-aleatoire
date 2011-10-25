@@ -59,7 +59,7 @@ public class GenerateurExponentielleTP2 extends GenerateurExponentielle {
 	    				effectif ++;
 	    			}
 	    		}
-	    		cl = new Classe(i, i+1, effectif, calculValeurTheorique(i, i+1));
+	    		cl = new Classe(i, i+1, effectif*lambda, calculValeurTheorique(i, i+1));
 	    		listeClasses.add(cl);
     	}
 			
@@ -97,13 +97,13 @@ public class GenerateurExponentielleTP2 extends GenerateurExponentielle {
 	@Override
 	public double calculValeurTheoriqueCumulee(double valMax) {
 		PoissonDistribution p = new PoissonDistribution(alpha);
-		return p.cumulative(valMax)*nbGenerations/lambda;
+		return p.cumulative(valMax)*nbGenerations;
 	}
 
 	@Override
 	public double calculValeurTheorique(double valMin, double valMax) {
 		PoissonDistribution p = new PoissonDistribution(alpha);
-		return p.probability(valMin)*nbGenerations/lambda;
+		return p.probability(valMin)*nbGenerations;
 	}
 
 	@Override
