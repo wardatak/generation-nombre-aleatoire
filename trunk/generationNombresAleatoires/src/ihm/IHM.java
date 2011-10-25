@@ -69,7 +69,6 @@ public class IHM extends javax.swing.JFrame {
         boutonUniforme = new javax.swing.JButton();
         textFieldEchantillon = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        boutonNormale = new javax.swing.JButton();
         boutonExponentielle = new javax.swing.JButton();
         boutonPoisson = new javax.swing.JButton();
         boutonWeibull = new javax.swing.JButton();
@@ -109,13 +108,6 @@ public class IHM extends javax.swing.JFrame {
         textFieldEchantillon.setText("1000");
 
         jLabel1.setText("Taille de l'échantillon à générer:");
-
-        boutonNormale.setText("Loi Normale");
-        boutonNormale.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                boutonNormaleActionPerformed(evt);
-            }
-        });
 
         boutonExponentielle.setText("Loi Exponentielle");
         boutonExponentielle.addActionListener(new java.awt.event.ActionListener() {
@@ -203,7 +195,6 @@ public class IHM extends javax.swing.JFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(textFieldLambda, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                         	.addComponent(boutonUniforme, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(boutonNormale, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(boutonWeibull, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(boutonPoisson, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(boutonTP2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -241,8 +232,6 @@ public class IHM extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(89, 89, 89)
                                 .addComponent(boutonUniforme)
-                                .addGap(18, 18, 18)
-                                .addComponent(boutonNormale)
                                 .addGap(18, 18, 18)
                                 .addComponent(boutonExponentielle)
                                 .addGap(18, 18, 18)
@@ -527,7 +516,6 @@ public class IHM extends javax.swing.JFrame {
     // Variables declaration - do not modify
     private javax.swing.JButton boutonExponentielle;
     private javax.swing.JButton boutonGraph;
-    private javax.swing.JButton boutonNormale;
     private javax.swing.JButton boutonPoisson;
     private javax.swing.JButton boutonUniforme;
     private javax.swing.JButton boutonWeibull;
