@@ -12,10 +12,12 @@ public class Feu {
 
 	public void passerAuRouge() {
 		this.couleur = 0;
+		//Paint component
 	}
 
 	public void passerAuVert() {
 		this.couleur = 1;
+		//Paint component
 	}
 
 	public int getFileCourante() {

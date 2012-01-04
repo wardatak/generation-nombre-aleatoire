@@ -47,6 +47,5 @@ public class GenerateurNormale extends Generateur{
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
 	
 }

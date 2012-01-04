@@ -4,6 +4,7 @@ import generateur.GenerateurNormale;
 import generateur.GenerateurUniforme;
 import generateur.GenerateurExponentielle;
 import generateur.PositiveGaussian;
+import gestionTraffic.Carrefour;
 import testeur.TestKhiDeux;
 
 public class TP {
@@ -19,9 +20,14 @@ public class TP {
 				
 		khi2.test(genExponentielle);
 		*/
-		GenerateurExponentielle genExponentielle = new GenerateurExponentielle();
+		/*GenerateurExponentielle genExponentielle = new GenerateurExponentielle();
 		System.out.println(genExponentielle.generationAleatoire(0.001));
 		PositiveGaussian n = new PositiveGaussian(30d, 5d);
 		System.out.println(n.getRandomValue());
+		*/
+		Carrefour c = new Carrefour();
+		c.run();
+		
+		
 	}
 }
