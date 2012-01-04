@@ -55,6 +55,14 @@ public class GenerateurExponentielle extends Generateur{
 	public double calculValeurTheorique(double valMin, double valMax) {
 		return 0;
 	}
+	
+	public double generationAleatoire(double lambda){
+		double valeur = 0;
+		
+		valeur = -1/lambda * Math.log(Math.random());
+		
+		return valeur;
+	}
 
 	@Override
 	public double calculValeurTheoriqueCumulee(double valMax) {
