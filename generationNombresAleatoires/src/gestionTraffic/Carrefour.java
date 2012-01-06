@@ -5,6 +5,8 @@ import generateur.PositiveGaussian;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 import javax.swing.Timer;
 
@@ -37,47 +39,112 @@ public class Carrefour {
 	/* timer pour le départ des voitures */
 	private Timer timerDepartH;
 	private Timer timerDepartV;
-	int tempsDepart = 1000;
+	int tempsDepart = 1; //Temps en seconde
 	int baseDeTemps = 1000;
 	private double trafficV1, trafficV2, trafficH1, trafficH2;
 	
 	public Carrefour(){
-		Feu feuRouge = new Feu(0);
-		Feu feuVert = new Feu(1);
-		feuV1 = feuRouge;
-		feuV2 = feuRouge;
-		feuH1 = feuVert;
-		feuH2 = feuVert;
+		feuV1 = new Feu(0);
+		feuV2 = new Feu(0);
+		feuH1 = new Feu(1);
+		feuH2 = new Feu(1);
 		moyenneV = 20;
 		ecartTypeV = 2;
 		moyenneH = 40;
 		ecartTypeH = 2;
 		trafficV1 = 0.5d;
 		trafficV2 = 0.5d;
-		trafficH1 = 1d;
-		trafficH2 = 1d;
-		timerDepartV = new Timer(tempsDepart , new ActionListener() {
+		trafficH1 = 0.5d;
+		trafficH2 = 0.5d;
+		timerDepartV = new Timer(tempsDepart * 1000 , new ActionListener() {
 					
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				feuV1.removeVoitureFileCourante();
+				ihm.IHMTestTimer.changeLabelTrafficV1(feuV1.getFileCourante());
 				feuV2.removeVoitureFileCourante();
+				ihm.IHMTestTimer.changeLabelTrafficV2(feuV2.getFileCourante());
+				System.out.println("\t\t\t\t\t\t\t\tdepart voiture file V1 : " + feuV1.getFileCourante());
 			}
 		});
 		
-		timerDepartH = new Timer(tempsDepart , new ActionListener() {
+		timerDepartH = new Timer(tempsDepart * 1000 , new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				feuH1.removeVoitureFileCourante();
+				ihm.IHMTestTimer.changeLabelTrafficH1(feuH1.getFileCourante());
 				feuH2.removeVoitureFileCourante();
+				ihm.IHMTestTimer.changeLabelTrafficH2(feuH2.getFileCourante());
 			}
 		});
+		/*GenerateurExponentielle g = new GenerateurExponentielle();
+		System.out.println("Lambda  = 0.01, moyenne : " + g.calculValeurMoyenne(0.01));
+		System.out.println("Lambda  = 0.05, moyenne : " + g.calculValeurMoyenne(0.05));
+		System.out.println("Lambda  = 0.1, moyenne : " + g.calculValeurMoyenne(0.1));
+		System.out.println("Lambda  = 0.5, moyenne : " + g.calculValeurMoyenne(0.5));
+		System.out.println("Lambda  = 0.9, moyenne : " + g.calculValeurMoyenne(0.9));
+		System.out.println("Lambda  = 1.5, moyenne : " + g.calculValeurMoyenne(1.5));
+		System.out.println("Lambda  = 2, moyenne : " + g.calculValeurMoyenne(2));
+		double l = g.trouverLambdaPourLaValeurSouhaitee(1);
+		System.out.println("Temps voulu = 1s, lambda = " + l);
+		System.out.println("Lambda  = " + l + ", moyenne : " + g.calculValeurMoyenne(l));*/
+		initCarrefour();
+		
+	}
+	
+	public void initCarrefour(){
+		moyenneV = 20;
+		ecartTypeV = 2;
+		moyenneH = 40;
+		ecartTypeH = 2;
+		
+		System.out.println("Temps moyen feu vert V : " + moyenneV);
+		System.out.println("Temps moyen feu rouge V : " + moyenneH);
+		
+		double tailleFileAttenteV = moyenneV * tempsDepart;
+		System.out.println("Taille file d'attente V : " + tailleFileAttenteV);
+		double tempsMinEntreDeuxVoituresV = moyenneH / tailleFileAttenteV;
+		System.out.println("Temps max entre 2 voitures sur la voie V : " + tempsMinEntreDeuxVoituresV);
+		GenerateurExponentielle g = new GenerateurExponentielle();
+		double lambdaV = g.trouverLambdaPourLaValeurSouhaitee(tempsMinEntreDeuxVoituresV);
+		double tempsMoyenneCalculeeV = g.calculValeurMoyenne(lambdaV);
+		while(tempsMoyenneCalculeeV < tempsMinEntreDeuxVoituresV){
+			lambdaV = g.trouverLambdaPourLaValeurSouhaitee(tempsMinEntreDeuxVoituresV);
+			tempsMoyenneCalculeeV = g.calculValeurMoyenne(lambdaV);
+		}
+		System.out.println("Temps voulu = " + tempsMinEntreDeuxVoituresV + ", lambda = " + lambdaV);
+		System.out.println("Lambda  = " + lambdaV + ", moyenne : " + g.calculValeurMoyenne(lambdaV));
+		trafficV1 = lambdaV;
+		trafficV2 = lambdaV;
+		System.out.println("==============================================");
+		System.out.println("Temps moyen feu vert H : " + moyenneH);
+		System.out.println("Temps moyen feu rouge H : " + moyenneV);
+		
+		double tailleFileAttenteH = moyenneH * tempsDepart;
+		System.out.println("Taille file d'attente H : " + tailleFileAttenteH);
+		double tempsMinEntreDeuxVoituresH = moyenneV / tailleFileAttenteH;
+		System.out.println("Temps max entre 2 voitures sur la voie V : " + tempsMinEntreDeuxVoituresH);
+		double lambdaH = g.trouverLambdaPourLaValeurSouhaitee(tempsMinEntreDeuxVoituresH);
+		double tempsMoyenneCalculeeH = g.calculValeurMoyenne(lambdaH);
+		while(tempsMoyenneCalculeeH < tempsMinEntreDeuxVoituresH){
+			lambdaH = g.trouverLambdaPourLaValeurSouhaitee(tempsMinEntreDeuxVoituresH);
+			tempsMoyenneCalculeeH = g.calculValeurMoyenne(lambdaH);
+		}
+		
+		System.out.println("Temps voulu = " + tempsMinEntreDeuxVoituresH + ", lambda = " + lambdaH);
+		System.out.println("Lambda  = " + lambdaH + ", moyenne : " + g.calculValeurMoyenne(lambdaH));
+		trafficH1 = lambdaH;
+		trafficH2 = lambdaH;
 		
 	}
 
 	public void run(){
-		
+		String format = "HH:mm:ss";
+
+		java.text.SimpleDateFormat formater = new java.text.SimpleDateFormat( format );
+		Date current = new Date(new GregorianCalendar().getTime().getTime()); 
+		System.out.println("Simulation lancée à : " + formater.format( current ));
 		attenteV(200);
 		trafficV1(feuV1);
 		trafficV2(feuV2);
@@ -90,6 +157,8 @@ public class Carrefour {
 	public void trafficV1(Feu f){
 		GenerateurExponentielle genExponentielle = new GenerateurExponentielle();
 		double t = genExponentielle.generationAleatoire(trafficV1);
+		double reelleCumulee = genExponentielle.calculValeurReelleCumulee(20);
+		double theoriqueCumulee = genExponentielle.calculValeurTheoriqueCumulee(20);
 		final Feu fs = f;
 		Integer i = (int) Math.round(t*baseDeTemps);
 		timerTraficV1 = new Timer(i , new ActionListener() {
@@ -97,6 +166,7 @@ public class Carrefour {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				fs.addVoitureFileCourante("FeuV1");
+				System.out.println("\tarrivée voiture file V1 : " + fs.getFileCourante());
 				ihm.IHMTestTimer.changeLabelTrafficV1(fs.getFileCourante());
 				timerTraficV1.stop();
 				trafficV1(fs);
@@ -205,7 +275,11 @@ public class Carrefour {
 		feuV2.passerAuVert("FeuV2");
 		feuH1.passerAuRouge("FeuH1");
 		feuH2.passerAuRouge("FeuH2");
-		System.out.println("Route verticale verte / Route horizontale rouge");
+		String format = "HH:mm:ss";
+
+		java.text.SimpleDateFormat formater = new java.text.SimpleDateFormat( format );
+		Date current = new Date(new GregorianCalendar().getTime().getTime()); 
+		System.out.println("Route verticale verte / Route horizontale rouge : " + formater.format( current ));
 	}
 	
 	public void routeHorizontaleAuVert(){
@@ -215,7 +289,11 @@ public class Carrefour {
 		feuV2.passerAuRouge("FeuV2");
 		feuH1.passerAuVert("FeuH1");
 		feuH2.passerAuVert("FeuH2");
-		System.out.println("Route verticale rouge / Route horizontale verte");
+		String format = "HH:mm:ss";
+
+		java.text.SimpleDateFormat formater = new java.text.SimpleDateFormat( format );
+		Date current = new Date(new GregorianCalendar().getTime().getTime()); 
+		System.out.println("Route verticale verte / Route horizontale rouge : " + formater.format( current ));
 	}
 	
 

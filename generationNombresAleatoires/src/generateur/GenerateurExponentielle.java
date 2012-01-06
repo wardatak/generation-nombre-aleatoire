@@ -70,5 +70,27 @@ public class GenerateurExponentielle extends Generateur{
 		resultat *= nbGenerations;
 		return resultat;
 	}
+	
+	public double calculValeurMoyenne(double lambda) {
+		ArrayList<Double> listTemp = new ArrayList<Double>();
+		double total = 0;
+		for(int i = 0 ; i < 2000 ; i++){
+			listTemp.add(generationAleatoire(lambda));
+			total += listTemp.get(i);
+		}
+		return total / 2000;
+	}
+	
+	public double trouverLambdaPourLaValeurSouhaitee(double valeur){
+		double lambda = 0;
+
+		//lambda = (-Math.log(Math.random())) / valeur;
+		double total = 0;
+		for(int i = 0 ; i < 2000 ; i++){
+			total += (-Math.log(Math.random())) / valeur;
+		}
+		lambda = total / 2000;
+		return lambda;
+	}
 
 }
