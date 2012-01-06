@@ -28,16 +28,15 @@ public class Feu {
 
 	public void addVoitureFileCourante(String feu) {
 		this.fileCourante++;
-		System.out.println("\tarrivée voiture file");
+		//System.out.println("\tarrivée voiture file");
 		//ihm.IHMTestTimer.changeLabelTraffic(feu, this.fileCourante);
 		
 	}
 	
 	public void removeVoitureFileCourante() {
-		System.out.println("\t\t\t\t\t\t\t\tdepart voiture file");
-		if(this.fileCourante > 0){
-			this.fileCourante--;
-		}else{
+		//System.out.println("\t\t\t\t\t\t\t\tdepart voiture file");
+		this.fileCourante--;
+		if(this.fileCourante < 0){
 			this.fileCourante = 0;
 		}
 	}
