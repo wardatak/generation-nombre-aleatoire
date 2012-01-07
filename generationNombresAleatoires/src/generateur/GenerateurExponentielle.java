@@ -11,6 +11,7 @@ public class GenerateurExponentielle extends Generateur{
 	
 	double nbUniforme;
 	double lambda;
+	int nombreTiragePourMoyenne = 5000;
 	
 	public GenerateurExponentielle(){
 		nom = "Loi Exponentielle";
@@ -74,11 +75,11 @@ public class GenerateurExponentielle extends Generateur{
 	public double calculValeurMoyenne(double lambda) {
 		ArrayList<Double> listTemp = new ArrayList<Double>();
 		double total = 0;
-		for(int i = 0 ; i < 2000 ; i++){
+		for(int i = 0 ; i < nombreTiragePourMoyenne ; i++){
 			listTemp.add(generationAleatoire(lambda));
 			total += listTemp.get(i);
 		}
-		return total / 2000;
+		return total / nombreTiragePourMoyenne;
 	}
 	
 	public double trouverLambdaPourLaValeurSouhaitee(double valeur){
@@ -86,11 +87,29 @@ public class GenerateurExponentielle extends Generateur{
 
 		//lambda = (-Math.log(Math.random())) / valeur;
 		double total = 0;
-		for(int i = 0 ; i < 2000 ; i++){
+		for(int i = 0 ; i < nombreTiragePourMoyenne ; i++){
 			total += (-Math.log(Math.random())) / valeur;
 		}
-		lambda = total / 2000;
+		lambda = total / nombreTiragePourMoyenne;
 		return lambda;
 	}
 
+	public ArrayList<Double> genererLambda(int nombreAGenerer) {
+		nbGenerations = nombreAGenerer;
+		GenerateurUniforme uniforme = new GenerateurUniforme();
+		double valeur = 0;
+		ArrayList<Double> listUniforme = uniforme.generer(nombreAGenerer);
+		for (int i=0; i<nombreAGenerer; i++){
+			// on récupère un nombre aléatoire généré avec la loi uniforme
+			nbUniforme = listUniforme.get(i);
+			
+			// on injecte ce nombre dans la formule de la loi exponentielle
+			valeur = -1/lambda * Math.log(nbUniforme);
+			
+			// on ajoute la valeur à l'ArrayList
+			listeValeurs.add(valeur);
+		}
+		return listeValeurs;
+	}
+	
 }
