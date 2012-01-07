@@ -1,5 +1,7 @@
 package ihm;
 
+import javax.swing.JFrame;
+
 import generateur.GenerateurNormale;
 import generateur.GenerateurUniforme;
 import generateur.GenerateurExponentielle;
@@ -25,8 +27,8 @@ public class TP {
 		PositiveGaussian n = new PositiveGaussian(30d, 5d);
 		System.out.println(n.getRandomValue());
 		*/
-		Carrefour c = new Carrefour();
-		c.run();
+		Carrefour c = new Carrefour(new JFrame());
+		c.start(false);
 		
 		
 	}
