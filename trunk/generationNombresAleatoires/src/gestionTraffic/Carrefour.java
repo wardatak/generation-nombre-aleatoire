@@ -8,8 +8,10 @@ import ihm.IHMTestTimer;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Random;
 
 import javax.swing.JFrame;
 import javax.swing.Timer;
@@ -121,54 +123,6 @@ public class Carrefour {
 	}
 	
 	public void initCarrefourLambda(){
-		
-		System.out.println("Temps moyen feu vert V : " + moyenneV);
-		System.out.println("Temps moyen feu rouge V : " + moyenneH);
-		
-		double tailleFileAttenteV = moyenneV * tempsDepart + 10;
-		System.out.println("Taille file d'attente V : " + tailleFileAttenteV);
-		double tempsMinEntreDeuxVoituresV = moyenneH / tailleFileAttenteV;
-		System.out.println("Temps max entre 2 voitures sur la voie V : " + tempsMinEntreDeuxVoituresV);
-		GenerateurExponentielle g = new GenerateurExponentielle();
-		double lambdaV = g.trouverLambdaPourLaValeurSouhaitee(tempsMinEntreDeuxVoituresV);
-		double tempsMoyenneCalculeeV = g.calculValeurMoyenne(lambdaV);
-		while(tempsMoyenneCalculeeV < tempsMinEntreDeuxVoituresV){
-			lambdaV = g.trouverLambdaPourLaValeurSouhaitee(tempsMinEntreDeuxVoituresV);
-			tempsMoyenneCalculeeV = g.calculValeurMoyenne(lambdaV);
-		}
-		System.out.println("Temps voulu = " + tempsMinEntreDeuxVoituresV + ", lambda = " + lambdaV);
-		System.out.println("Lambda  = " + lambdaV + ", moyenne : " + tempsMoyenneCalculeeV);
-		if(parent instanceof  IHMTestTimerOld){
-		}else{
-			((IHMTestTimer)parent).changeLabelLambdaV1(lambdaV);
-			((IHMTestTimer)parent).changeLabelLambdaV2(lambdaV);
-		}
-		trafficV1 = lambdaV;
-		trafficV2 = lambdaV;
-		System.out.println("==============================================");
-		System.out.println("Temps moyen feu vert H : " + moyenneH);
-		System.out.println("Temps moyen feu rouge H : " + moyenneV);
-		
-		double tailleFileAttenteH = moyenneH * tempsDepart  + 10;
-		System.out.println("Taille file d'attente H : " + tailleFileAttenteH);
-		double tempsMinEntreDeuxVoituresH = moyenneV / tailleFileAttenteH;
-		System.out.println("Temps max entre 2 voitures sur la voie V : " + tempsMinEntreDeuxVoituresH);
-		double lambdaH = g.trouverLambdaPourLaValeurSouhaitee(tempsMinEntreDeuxVoituresH);
-		double tempsMoyenneCalculeeH = g.calculValeurMoyenne(lambdaH);
-		while(tempsMoyenneCalculeeH < tempsMinEntreDeuxVoituresH){
-			lambdaH = g.trouverLambdaPourLaValeurSouhaitee(tempsMinEntreDeuxVoituresH);
-			tempsMoyenneCalculeeH = g.calculValeurMoyenne(lambdaH);
-		}
-		
-		System.out.println("Temps voulu = " + tempsMinEntreDeuxVoituresH + ", lambda = " + lambdaH);
-		System.out.println("Lambda  = " + lambdaH + ", moyenne : " + tempsMoyenneCalculeeH);
-		if(parent instanceof  IHMTestTimerOld){
-		}else{
-			((IHMTestTimer)parent).changeLabelLambdaH1(lambdaH);
-			((IHMTestTimer)parent).changeLabelLambdaH2(lambdaH);
-		}
-		trafficH1 = lambdaH;
-		trafficH2 = lambdaH;
 		/*GenerateurExponentielle g = new GenerateurExponentielle();
 		System.out.println("Lambda  = 0.01, moyenne : " + g.calculValeurMoyenne(0.01));
 		System.out.println("Lambda  = 0.05, moyenne : " + g.calculValeurMoyenne(0.05));
@@ -180,6 +134,73 @@ public class Carrefour {
 		double l = g.trouverLambdaPourLaValeurSouhaitee(1);
 		System.out.println("Temps voulu = 1s, lambda = " + l);
 		System.out.println("Lambda  = " + l + ", moyenne : " + g.calculValeurMoyenne(l));*/
+		double muV;
+		double muH;
+		int min;
+		int maxV;
+		int maxH;
+		System.out.println("==============================================");
+		System.out.println("Temps moyen feu vert V : " + moyenneV);
+		System.out.println("Temps moyen feu rouge V : " + moyenneH);
+		muV = moyenneV / (moyenneV + moyenneH);
+		System.out.println("Mu pour la voie V : " + muV);
+		
+		//Pour l'ergodicité psy < 1 => lambda / mu < 1 => lambda < mu
+		min = 1;
+		maxV = (int)(muV * baseDeTemps);
+		System.out.println("Pour garder l'ergodicité : 0 < Lambda V < " + maxV);
+		
+
+		
+		System.out.println("==============================================");
+		System.out.println("Temps moyen feu vert H : " + moyenneH);
+		System.out.println("Temps moyen feu rouge H : " + moyenneV);
+		muH = moyenneH / (moyenneV + moyenneH);
+		maxH = (int)(muH * baseDeTemps);
+		System.out.println("Mu pour la voie H : " + muH);
+		System.out.println("Pour garder l'ergodicité : 0 < Lambda H < " + maxH);
+		
+		
+		if(moyenneV < moyenneH){
+			trafficV1 = (double)(((int)(Math.random() * (maxV-min)) + min)) / baseDeTemps;
+			trafficV2 = (double)(((int)(Math.random() * (maxV-min)) + min)) / baseDeTemps;
+			if(parent instanceof  IHMTestTimer){
+				((IHMTestTimer)parent).changeLabelLambdaV1(trafficV1, (double)(maxV)/ baseDeTemps);
+				((IHMTestTimer)parent).changeLabelLambdaV2(trafficV2, (double)(maxV)/ baseDeTemps);
+			}
+			trafficH1 = (double)(((int)(Math.random() * (maxH-maxV)) + maxV)) / baseDeTemps;
+			trafficH2 = (double)(((int)(Math.random() * (maxH-maxV)) + maxV)) / baseDeTemps;
+			if(parent instanceof  IHMTestTimer){
+				((IHMTestTimer)parent).changeLabelLambdaH1(trafficH1, (double)(maxH)/ baseDeTemps);
+				((IHMTestTimer)parent).changeLabelLambdaH2(trafficH2, (double)(maxH)/ baseDeTemps);
+			}
+		}else if(moyenneV > moyenneH){
+			trafficV1 = (double)(((int)(Math.random() * (maxV-maxH)) + maxH)) / baseDeTemps;
+			trafficV2 = (double)(((int)(Math.random() * (maxV-maxH)) + maxH)) / baseDeTemps;
+			if(parent instanceof  IHMTestTimer){
+				((IHMTestTimer)parent).changeLabelLambdaV1(trafficV1, (double)(maxV)/ baseDeTemps);
+				((IHMTestTimer)parent).changeLabelLambdaV2(trafficV2, (double)(maxV)/ baseDeTemps);
+			}
+			trafficH1 = (double)(((int)(Math.random() * (maxH-min)) + min)) / baseDeTemps;
+			trafficH2 = (double)(((int)(Math.random() * (maxH-min)) + min)) / baseDeTemps;
+			if(parent instanceof  IHMTestTimer){
+				((IHMTestTimer)parent).changeLabelLambdaH1(trafficH1, (double)(maxH)/ baseDeTemps);
+				((IHMTestTimer)parent).changeLabelLambdaH2(trafficH2, (double)(maxH)/ baseDeTemps);
+			}
+		}else{
+			trafficV1 = (double)(((int)(Math.random() * (maxV-min)) + min)) / baseDeTemps;
+			trafficV2 = (double)(((int)(Math.random() * (maxV-min)) + min)) / baseDeTemps;
+			if(parent instanceof  IHMTestTimer){
+				((IHMTestTimer)parent).changeLabelLambdaV1(trafficV1, (double)(maxV)/ baseDeTemps);
+				((IHMTestTimer)parent).changeLabelLambdaV2(trafficV2, (double)(maxV)/ baseDeTemps);
+			}
+			trafficH1 = (double)(((int)(Math.random() * (maxH-min)) + min)) / baseDeTemps;
+			trafficH2 = (double)(((int)(Math.random() * (maxH-min)) + min)) / baseDeTemps;
+			if(parent instanceof  IHMTestTimer){
+				((IHMTestTimer)parent).changeLabelLambdaH1(trafficH1, (double)(maxH)/ baseDeTemps);
+				((IHMTestTimer)parent).changeLabelLambdaH2(trafficH2, (double)(maxH)/ baseDeTemps);
+			}
+		}
 		
 	}
 	
@@ -254,6 +275,20 @@ public class Carrefour {
 		if(parent instanceof  IHMTestTimerOld){
 		}else{
 			((IHMTestTimer)parent).initFeux();
+		}
+		ArrayList<Feu> listFeux = new ArrayList<Feu>();
+		listFeux.add(feuV1);
+		listFeux.add(feuH1);
+		listFeux.add(feuV2);
+		listFeux.add(feuH2);
+		for(Feu f : listFeux){
+			f.setFileCourante(0);
+			f.setDureeSecondeEtat(0);
+		}
+		if(parent instanceof  IHMTestTimerOld){
+		}else{
+			((IHMTestTimer)parent).resetIHM();
+			((IHMTestTimer)parent).resetTempsFeux();
 		}
 	}
 	

@@ -93,23 +93,5 @@ public class GenerateurExponentielle extends Generateur{
 		lambda = total / nombreTiragePourMoyenne;
 		return lambda;
 	}
-
-	public ArrayList<Double> genererLambda(int nombreAGenerer) {
-		nbGenerations = nombreAGenerer;
-		GenerateurUniforme uniforme = new GenerateurUniforme();
-		double valeur = 0;
-		ArrayList<Double> listUniforme = uniforme.generer(nombreAGenerer);
-		for (int i=0; i<nombreAGenerer; i++){
-			// on récupère un nombre aléatoire généré avec la loi uniforme
-			nbUniforme = listUniforme.get(i);
-			
-			// on injecte ce nombre dans la formule de la loi exponentielle
-			valeur = -1/lambda * Math.log(nbUniforme);
-			
-			// on ajoute la valeur à l'ArrayList
-			listeValeurs.add(valeur);
-		}
-		return listeValeurs;
-	}
 	
 }
