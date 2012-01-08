@@ -39,6 +39,9 @@ public class Feu {
 	public int getFileCourante() {
 		return fileCourante;
 	}
+	public void setFileCourante(int value) {
+		fileCourante = value;
+	}
 
 	public void addVoitureFileCourante(String feu) {
 		this.fileCourante++;

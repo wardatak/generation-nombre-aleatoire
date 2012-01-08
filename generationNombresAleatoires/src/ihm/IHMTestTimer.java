@@ -518,7 +518,12 @@ public class IHMTestTimer extends javax.swing.JFrame {
             feuGauche.setBackground(Color.WHITE);
             feuDroite.setBackground(Color.WHITE);
     }
-    
+    public static void resetTempsFeux(){
+        changeLabelTempsV1(0);
+		changeLabelTempsV2(0);
+		changeLabelTempsH1(0);
+		changeLabelTempsH2(0);
+    }
     public static void changeBackgroundRouge(String nomFeux){
         if(nomFeux.equals("FeuV1")){
             feuHaut.setBackground(Color.RED);
@@ -567,21 +572,21 @@ public class IHMTestTimer extends javax.swing.JFrame {
     	lblVoitureDroite.setText(""+valeur);
     }
     
-    public static void changeLabelLambdaV1(double valeur){
+    public static void changeLabelLambdaV1(double valeur, double max){
     	tfLambdaHaut.setText(""+((double)(Math.round(valeur*100))/100));
-    	tfLambdaHaut.setToolTipText("Valeur réelle : "+valeur);
+    	tfLambdaHaut.setToolTipText("Valeur réelle (" + valeur + ") comprise entre 0 et " + max);
     }
-    public static void changeLabelLambdaV2(double valeur){
+    public static void changeLabelLambdaV2(double valeur, double max){
     	tfLambdaBas.setText(""+((double)(Math.round(valeur*100))/100));
-    	tfLambdaBas.setToolTipText("Valeur réelle : "+valeur);
+    	tfLambdaBas.setToolTipText("Valeur réelle (" + valeur + ") comprise entre 0 et " + max);
     }
-    public static void changeLabelLambdaH1(double valeur){
+    public static void changeLabelLambdaH1(double valeur, double max){
     	tfLambdaGauche.setText(""+((double)(Math.round(valeur*100))/100));
-    	tfLambdaGauche.setToolTipText("Valeur réelle : "+valeur);
+    	tfLambdaGauche.setToolTipText("Valeur réelle (" + valeur + ") comprise entre 0 et " + max);
     }
-    public static void changeLabelLambdaH2(double valeur){
+    public static void changeLabelLambdaH2(double valeur, double max){
     	tfLambdaDroite.setText(""+ ((double)(Math.round(valeur*100))/100));
-    	tfLambdaDroite.setToolTipText("Valeur réelle : "+valeur);
+    	tfLambdaDroite.setToolTipText("Valeur réelle (" + valeur + ") comprise entre 0 et " + max);
     }
     
     public static void changeLabelTempsV1(int tempsEnSeconde){
@@ -595,6 +600,12 @@ public class IHMTestTimer extends javax.swing.JFrame {
     }
     public static void changeLabelTempsH2(int tempsEnSeconde){
     	labelTempsFeuDroite.setText(""+tempsEnSeconde);
+    }
+    public void resetIHM(){
+    	lblVoitureHaut.setText("0");
+    	lblVoitureBas.setText("0");
+    	lblVoitureGauche.setText("0");
+    	lblVoitureDroite.setText("0");
     }
     
     // Variables declaration - do not modify
